@@ -99,8 +99,10 @@ class AppFixtures extends Fixture
       
 
         $tags = new Tag();
-        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)]);
+        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)])
+        ->addArticle($article);
         $manager->persist($tags);
+
         }
 
 
