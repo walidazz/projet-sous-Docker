@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -35,6 +39,11 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password",message="Les mots de passes ne correspondent pas !")
+     */
+    private $passwordConfirm;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -314,5 +323,44 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->pseudo;
+    }
+
+    /**
+     * Get the value of passwordConfirm
+     */
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
+    }
+
+    /**
+     * Set the value of passwordConfirm
+     *
+     * @return  self
+     */
+    public function setPasswordConfirm($passwordConfirm)
+    {
+        $this->passwordConfirm = $passwordConfirm;
+
+        return $this;
+    }
+
+    /**
+     * Permet d'initialiser la date de création !
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeDate()
+    {
+        if (empty($this->createdAt)) {
+            $this->createdAt = new \DateTime('now');
+        }
+
+        if (!empty($this->createdAt)) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 }
