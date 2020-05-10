@@ -15,10 +15,9 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            $this->addFlash('danger','Vous êtes déja connecté !');
-            return $this->redirectToRoute('target_path');
+            $this->addFlash('danger', 'Vous êtes déja connecté !');
+            return $this->redirectToRoute('homepage');
         }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
