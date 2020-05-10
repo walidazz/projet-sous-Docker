@@ -1,8 +1,27 @@
 easy_admin:
-    entities:
-#        # List the entity class name you want to manage
-        - App\Entity\User
-        - App\Entity\Article
-        - App\Entity\Comment
-        - App\Entity\Tag
-        - App\Entity\Category
+  entities:
+    #
+    # List the entity class name you want to manage
+    User:
+      class: App\Entity\User
+      list:
+        fields: 
+            - id
+            - { property: 'avatar', type: 'avatar', is_image_url: 'true', height: 70} 
+            - pseudo
+            - email
+            - sexe
+            - birthday
+            - enable
+
+    Article:
+      class: App\Entity\Article
+
+    Comment:
+      class: App\Entity\Comment
+
+    Tag:
+      class: App\Entity\Tag
+
+    Category:
+      class: App\Entity\Category
