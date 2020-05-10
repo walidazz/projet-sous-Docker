@@ -73,7 +73,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $enable;
+    private $enable = false;
 
     /**
      * @ORM\Column(type="datetime")
