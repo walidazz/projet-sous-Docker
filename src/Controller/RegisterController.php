@@ -35,7 +35,7 @@ class RegisterController extends AbstractController
             $from = 'hisokath12@gmail.com';
             $email = $user->getEmail();
 
-            $mailerService->sendToken($from, $token, $email, $username, 'validateAccount.html.twig');
+            $mailerService->sendToken($token, $email, $username, 'validateAccount.html.twig');
 
             $this->addFlash('success', 'vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecté');
             return $this->redirectToRoute('app_login');
@@ -62,6 +62,7 @@ class RegisterController extends AbstractController
             $user->setEnable(true);
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'Votre compte est désormais actif ! ');
             return $this->redirectToRoute('app_login');
         } else {
             return $this->render('register/token-expire.html.twig');

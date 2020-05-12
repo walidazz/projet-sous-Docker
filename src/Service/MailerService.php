@@ -11,7 +11,7 @@ class MailerService extends AbstractController
      */
     private $mailer;
 
-    
+
     public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
@@ -22,10 +22,10 @@ class MailerService extends AbstractController
      * @param $template
      * @param $to
      */
-    public function sendToken($from,$token, $to, $username, $template)
+    public function sendToken($token, $to, $username, $template)
     {
         $message = (new \Swift_Message('Email de confirmation'))
-            ->setFrom($from)
+            ->setFrom('hisokath12@gmail.com')
             ->setTo($to)
             ->setBody(
                 $this->renderView(
