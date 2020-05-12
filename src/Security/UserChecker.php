@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Exception\AccountDeletedException;
 use App\Security\User as AppUser;
+
 use Doctrine\ORM\Cache\LockException;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
@@ -18,6 +19,7 @@ class UserChecker implements UserCheckerInterface
         // if (!$user instanceof AppUser) {
         //     return;
         // }
+
 
 
         if ($user->getEnable() === false) {
