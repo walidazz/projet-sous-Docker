@@ -365,18 +365,5 @@ class User implements UserInterface
     }
 
 
-    /**
-     * Permet d'initialiser la date de création !
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     * 
-     * @return void
-     */
-    public function initializeStatut()
-    {
-        if ($this->enable === 1) {
-            $this->roles = ['ROLE_USER'];
-        }
-    }
+
 }

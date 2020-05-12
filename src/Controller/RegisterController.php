@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class RegisterController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request, EntityManagerInterface $em,  UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, EntityManagerInterface $em,  UserPasswordEncoderInterface $encoder, MailerService $mailerService, \Swift_Mailer $mailer)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -30,10 +31,14 @@ class RegisterController extends AbstractController
 
             $em->flush();
             $token = $user->getTokenConfirmation();
+            $username = $user->getUsername();
+            $from = 'hisokath12@gmail.com';
             $email = $user->getEmail();
 
-            $this->addFlash("success", "Un mail de confirmation a été envoyé sur votre adresse mail");
-            return $this->redirectToRoute('homepage');
+            $mailerService->sendToken($from, $token, $email, $username, 'validateAccount.html.twig');
+
+            $this->addFlash('success', 'vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecté');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('register/index.html.twig', [
@@ -41,14 +46,20 @@ class RegisterController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/confirmAccount/{token}/{username}", name="confirmAccount")
+     */
     public function confirmAccount($token, $username): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->findOneBy(['username' => $username]);
-        $tokenExist = $user->getTokenConfirmation();
-        if ($token === $tokenExist) {
+
+        $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
+        if ($token === $user->getTokenConfirmation()) {
             $user->setTokenConfirmation(null);
-            $user->setEnabled(true);
+            $user->setRoles(['ROLE_USER']);
+            $user->setEnable(true);
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('app_login');
