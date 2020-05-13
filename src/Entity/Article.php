@@ -7,11 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -53,6 +57,13 @@ class Article
      */
     private $image;
 
+
+    /**
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="image")
+     */
+    private $imageFile;
+
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -83,6 +94,23 @@ class Article
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
+
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+
 
     public function getId(): ?int
     {

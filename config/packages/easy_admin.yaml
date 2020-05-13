@@ -9,10 +9,11 @@ easy_admin:
         actions: ['-new']
         fields: 
             - id
-            - { property: 'avatar', type: 'avatar', is_image_url: 'true', height: 70} 
+            - { property: 'avatar', type: 'image', height: 70 , base_path: '/images/user' } 
             - pseudo
             - email
             - sexe
+            - { property: 'roles', label: 'Rôles', type: json_array}
             - birthday
             - enable
             - comments
@@ -21,15 +22,16 @@ easy_admin:
             - pseudo
             - email
             - { property: 'password', type: 'password'}
+            - { property: 'roles', label: 'Rôles', type: choice, type_options: {expanded: true, multiple: true, choices: {'Utilisateur':'ROLE_USER', 'Administrateur':'ROLE_ADMIN'}}}
             - sexe
             - birthday
-            - avatar
+            - { property: 'imageFile', type: 'file' } 
 
     Article:
       class: App\Entity\Article
       form:
         fields:
-            - { property: 'image', type: 'image', is_image_url: 'true', height: 70} 
+            - { property: 'imageFile', type: 'file' }            
             - title
             - introduction
             - content
@@ -40,7 +42,7 @@ easy_admin:
         fields: 
             - id
             - auteur
-            - { property: 'image', type: 'image', is_image_url: 'true', height: 70} 
+            - { property: 'image', type: 'image', height: 70 , base_path: '/images/article' } 
             - title
             - category
             - tags
@@ -51,7 +53,7 @@ easy_admin:
       list:
         fields: 
             - id
-            - { property: 'auteur.avatar', type: 'avatar', is_image_url: 'true', height: 60} 
+            - { property: 'auteur.avatar', type: 'avatar', height: 60} 
             - auteur
             - article
             - content

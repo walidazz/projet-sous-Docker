@@ -27,13 +27,19 @@
                     <a class="nav-link" href="#">Animés</a>
                 </li>
 
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Administration</a>
+                </li>
+                {% endif %}
+
 
             </ul>
-            
+
             <form class="form-inline my-2 my-lg-0 mx-5">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                   Rechercher
+                    Rechercher
                 </button>
             </form>
         </div>
