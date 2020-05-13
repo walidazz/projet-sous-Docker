@@ -58,7 +58,6 @@ class RegisterController extends AbstractController
         $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
         if ($token === $user->getTokenConfirmation()) {
             $user->setTokenConfirmation(null);
-            $user->setRoles(['ROLE_USER']);
             $user->setEnable(true);
             $em->persist($user);
             $em->flush();

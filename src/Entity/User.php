@@ -361,4 +361,19 @@ class User implements UserInterface
             $this->updatedAt = new \DateTime('now');
         }
     }
+
+    /**
+     * Permet d'initialiser la date de création !
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeStatut()
+    {
+        if ((empty($this->roles)) && $this->enable === true) {
+            $this->roles = ['ROLE_USER'];
+        }
+    }
 }

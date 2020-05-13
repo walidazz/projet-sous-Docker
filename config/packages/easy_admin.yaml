@@ -1,10 +1,12 @@
 easy_admin:
+  site_name: Administration
   entities:
     #
     # List the entity class name you want to manage
     User:
       class: App\Entity\User
       list:
+        actions: ['-new']
         fields: 
             - id
             - { property: 'avatar', type: 'avatar', is_image_url: 'true', height: 70} 
@@ -13,25 +15,61 @@ easy_admin:
             - sexe
             - birthday
             - enable
-
+            - comments
+      form:
+        fields:
+            - pseudo
+            - email
+            - { property: 'password', type: 'password'}
+            - sexe
+            - birthday
+            - avatar
 
     Article:
       class: App\Entity\Article
       form:
         fields:
+            - { property: 'image', type: 'image', is_image_url: 'true', height: 70} 
             - title
             - introduction
             - content
-            - image
             - category
             - tags
             - auteur
-
+      list:
+        fields: 
+            - id
+            - auteur
+            - { property: 'image', type: 'image', is_image_url: 'true', height: 70} 
+            - title
+            - category
+            - tags
+            - comments
+            - createdAt
     Comment:
       class: App\Entity\Comment
+      list:
+        fields: 
+            - id
+            - { property: 'auteur.avatar', type: 'avatar', is_image_url: 'true', height: 60} 
+            - auteur
+            - article
+            - content
+            - createdAt
+      form:
+        fields:
+            - auteur
+            - content
+            - article
 
     Tag:
       class: App\Entity\Tag
+      form:
+        fields:
+            - libelle
 
     Category:
       class: App\Entity\Category
+      form:
+        fields:
+            - libelle
