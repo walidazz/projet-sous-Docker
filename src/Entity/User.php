@@ -357,11 +357,8 @@ class User implements UserInterface
     {
         if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime('now');
-        }
-
-        if (!empty($this->createdAt)) {
+        } else {
             $this->updatedAt = new \DateTime('now');
         }
     }
-
 }

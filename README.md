@@ -1,10 +1,7 @@
 ### A faire
 
--faire l'inscription pour un utilisateur
--terminer la confirmation par mail 
+- configurer tous les formulaires pour les entity dans easy admin
 
-
-- Configurer vic uploader + entity imagefile
-- mettre en place les fixtures
-- mise en place des cruds + formulaires
-
+* Configurer vic uploader + entity imagefile
+* mettre en place les fixtures
+* mise en place des cruds + formulaires

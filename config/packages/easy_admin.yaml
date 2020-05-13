@@ -14,8 +14,18 @@ easy_admin:
             - birthday
             - enable
 
+
     Article:
       class: App\Entity\Article
+      form:
+        fields:
+            - title
+            - introduction
+            - content
+            - image
+            - category
+            - tags
+            - auteur
 
     Comment:
       class: App\Entity\Comment

@@ -273,7 +273,6 @@ class Article
         }
     }
 
-
     /**
      * Permet d'initialiser la date de création !
      *
@@ -286,9 +285,7 @@ class Article
     {
         if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime('now');
-        }
-
-        if (!empty($this->createdAt)) {
+        } else {
             $this->updatedAt = new \DateTime('now');
         }
     }
