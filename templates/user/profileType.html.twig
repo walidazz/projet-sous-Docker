@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier son profil{% endblock %}
+
+{% block body %}
+<div class="col-4 mx-auto p-3 m-2 border border-black">
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<input type="submit" value="Modifier">
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
