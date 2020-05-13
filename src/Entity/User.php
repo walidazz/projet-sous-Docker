@@ -139,7 +139,6 @@ class User implements UserInterface, Serializable
             $this->id,
             $this->email,
             $this->password,
-            $this->pseudo,
             $this->avatar,
 
             // see section on salt below
@@ -153,7 +152,6 @@ class User implements UserInterface, Serializable
             $this->id,
             $this->email,
             $this->password,
-            $this->pseudo,
             $this->avatar,
 
             // see section on salt below

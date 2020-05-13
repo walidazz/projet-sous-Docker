@@ -29,40 +29,45 @@
 
 
             </ul>
+            
             <form class="form-inline my-2 my-lg-0 mx-5">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                    Search
+                   Rechercher
                 </button>
             </form>
         </div>
     </div>
+    <div class="float-right">
+        {% if is_granted('ROLE_USER') %}
+        <div class="btn-group dropleft">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                {{app.user.pseudo}}
+            </button>
+            <div class="dropdown-menu">
 
-    <ul class="navbar-nav">
-        {% if app.user %}
-        <li class="nav-item dropdown ">
-            {{ app.user.pseudo }}
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{path('profile_edit', {'id' : app.user.id})}}">Editer son profil</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
-                </div>
+                <a class="dropdown-item" href="{{path('profile_edit', {'id' : app.user.id})}}">Editer son profil</a>
+                <a class="dropdown-item" href="#">Another action</a>
 
-                {% else %}
-        <li class="nav-item">
-            <a class="nav-link btn btn-outline-primary" href="{{ path('app_login') }}">Connexion</a>
-        </li>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{path('app_logout')}}">Deconnexion</a>
 
-        <li class="nav-item">
-            <a class="nav-link btn btn-outline-warning mx-2" href="{{path('register')}}">Inscription</a>
-        </li>
-        </a>
-        </li>
+
+
+            </div>
+        </div>
+        {% else %}
+
+        <a class="btn btn-outline-danger" href="{{path('app_login')}}">Connexion</a>
+
+        <a class="btn btn-outline-warning" href="{{path('register')}}">Inscription</a>
+
         {% endif %}
-    </ul>
+
+
+    </div>
+
 
 </nav>
 {% for label,messages in app.flashes %}
