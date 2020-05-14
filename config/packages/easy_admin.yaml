@@ -9,7 +9,7 @@ easy_admin:
         actions: ['-new']
         fields: 
             - id
-            - { property: 'avatar', type: 'image', height: 70 , base_path: '/images/user' } 
+            - { property: 'avatar', type: 'image', height: 70 , base_path: '/images/users/' } 
             - pseudo
             - email
             - sexe
@@ -42,7 +42,7 @@ easy_admin:
         fields: 
             - id
             - auteur
-            - { property: 'image', type: 'image', height: 70 , base_path: '/images/article' } 
+            - { property: 'image', type: 'image', height: 70 , base_path: '/images/articles/' } 
             - title
             - category
             - tags
