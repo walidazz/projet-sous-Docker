@@ -34,9 +34,9 @@ easy_admin:
             - { property: 'imageFile', type: 'file' }            
             - title
             - introduction
-            - content
+            - { property: 'content', type: 'text_editor' }
             - category
-            - tags
+            - { property: 'tags', type_options: { 'by_reference': false } }
             - auteur
       list:
         fields: 
@@ -56,7 +56,7 @@ easy_admin:
             - { property: 'auteur.avatar', type: 'avatar', height: 60} 
             - auteur
             - article
-            - content
+            - { property: 'content', type: 'text_editor' }
             - createdAt
       form:
         fields:

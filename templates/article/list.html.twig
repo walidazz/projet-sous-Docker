@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des articles{% endblock %}
+
+{% block body %}
+
+    
+{% if articles %}
+    
+
+<div class="row col-md-8 mx-auto"></div>
+
+
+    {% for article in articles %}
+
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="{{asset('images/articles/' ~ article.image)}}" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text"> Title : {{article.title}}</p>
+            <p class="card-text"> Introduction {{article.introduction}}</p>
+            <p class="card-text"> Content: {{article.content|raw}}</p>
+            <a class="btn btn-secondary btn-md" href="{{path('article_show' , {'slug' : article.slug})}}">Voir détail</a>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<div class="pagination">
+    <div class="mx-auto">
+        {{ knp_pagination_render(articles) }}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

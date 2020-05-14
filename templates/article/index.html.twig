@@ -1,8 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Show{% endblock %}
 
 {% block body %}
+<div class="card m-2" style="width: 18rem;">
+    <img class="card-img-top" src="{{asset('images/articles/' ~ article.image)}}" alt="Card image cap">
+    <div class="card-body">
+        <p class="card-text"> Title : {{article.title}}</p>
+        <p class="card-text"> Introduction {{article.introduction}}</p>
+        <p class="card-text"> Content: {{article.content}}</p>
+    </div>
+</div>
 
+<form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
+
+    <img src="{{asset('images/users/' ~ app.user.avatar)}}" alt="avatar">
+    <textarea name="content" id="" cols="100" rows="5"></textarea>
+    <input type="submit" value="Poster">
+</form>
+
+
+
+
+{% for comment in article.comments %}
+<div class="row col-md-8 mx-auto border border-black p-2 m-3">
+
+    <div class="m-3">
+        auteur: {{comment.auteur}} <br>
+        content: {{ comment.content|raw }} <br>
+    </div>
+</div>
+
+<form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
+    onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
+
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+    <input type="submit" value="Supprimer">
+</form>
+{% endfor %}
 
 {% endblock %}
