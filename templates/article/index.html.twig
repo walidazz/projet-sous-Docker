@@ -12,6 +12,10 @@
     </div>
 </div>
 
+<a class="btn btn-warning " id="ajax-link" href="{{path('articleAjax', {'id' : article.id})}}">Clique ici si tu veux
+    voir de l'ajax</a>
+
+<span id="rep"></span>
 <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
 
     <img src="{{asset('images/users/' ~ app.user.avatar)}}" alt="avatar">
@@ -41,3 +45,31 @@
 {% endfor %}
 
 {% endblock %}
+
+
+{% block javascripts %}
+<script src=" https://unpkg.com/axios/dist/axios.min.js "> </script>
+
+<script>
+
+    let link = document.querySelector('#ajax-link');
+    let rep = document.querySelector('#rep');
+    document.querySelector('#ajax-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        const url = link.href;
+
+
+        axios.get(url).then(function (response) {
+
+            let title = response.data.title;
+
+            rep.innerHTML = title;
+
+        }
+        )
+    })
+
+</script>
+
+
+{% endblock javascripts %}

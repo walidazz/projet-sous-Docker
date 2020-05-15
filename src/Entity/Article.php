@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -34,6 +35,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"userSimple"})
      */
     private $title;
 
@@ -44,11 +46,13 @@ class Article
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"userSimple"})
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"userSimple"})
      */
     private $content;
 
