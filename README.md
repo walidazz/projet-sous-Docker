@@ -7,3 +7,4 @@
 -> systeme mot de passe oublié ? quasi fini mais à verifier
 
 -> verifier la systeme de confirmation pour reinitialiser son mot de passe 
+# error rectification au niveau de forgottenPassword

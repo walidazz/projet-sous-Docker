@@ -86,11 +86,19 @@ class RegisterController extends AbstractController
 
 
     /**
+     * Permet de d'ennvoyer un mail de confirmation à l'adresse mail de l'user
      * @Route("/forgottenPassword", name="forgottenPassword")
      */
     public function forgottenPassword(MailerService $mailerService, Request $request, EntityManagerInterface $em)
     {
+    //    $username =  $request->get('form');
+        // dd($request);
+        // dd($username);
+        // $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
+ 
+
         $user = new User();
+        
         $form = $this->createFormBuilder($user)
             ->add('email', EmailType::class)
             ->add('save', SubmitType::class, ['label' => 'Reinitialiser le mot de passe '])
@@ -99,6 +107,9 @@ class RegisterController extends AbstractController
         $token = $this->generateToken();
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setTokenConfirmation($this->generateToken());
+            // $user->setEmail($user->getUsername());
+            // $user->setPseudo($user->getPseudo());
+            // $user->setPassword($user->getPassword());
             $em->persist($user);
             $em->flush();
             $mailerService->sendToken($token, $user->getEmail(), $user->getPseudo(), 'resetPassword.html.twig');
@@ -115,6 +126,7 @@ class RegisterController extends AbstractController
 
 
     /**
+     * Valide l'email de confirmation et renvoie vers le formulaire de changement de password
      * @Route("/changePassword/{username}/{token}", name="changePassword")
      */
     public function changePassword($username, $token, Request $request, EntityManagerInterface $em)
