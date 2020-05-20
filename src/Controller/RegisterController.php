@@ -95,27 +95,23 @@ class RegisterController extends AbstractController
             $username = $request->get('_email');
             $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
             $token = $this->generateToken();
-            $user->setTokenConfirmation($this->generateToken());
+            $user->setTokenConfirmation($token);
             $em->persist($user);
             $em->flush();
-            $mailerService->sendToken($token, $user->getEmail(), $user->getPseudo(), 'resetPassword.html.twig');
+            $mailerService->sendToken($token, $user->getEmail(), $user->getUsername(), 'resetPassword.html.twig');
             $this->addFlash("success", "un mail vient d'être envoyé sur votre adresse mail pour changer votre mot de passe");
             return $this->redirectToRoute('homepage');
         }
         return $this->render('user/forgottenPassword.html.twig', []);
     }
 
-
-
-
     /**
      * Valide l'email de confirmation et renvoie vers le formulaire de changement de password
      * @Route("/changePassword/{username}/{token}", name="changePassword")
      */
-    public function changePassword($username, $token, Request $request, EntityManagerInterface $em)
+    public function changePassword($username, $token, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         $em = $this->getDoctrine()->getManager();
-
         $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
         if ($token === $user->getTokenConfirmation()) {
             $form = $this->createFormBuilder($user)
@@ -125,6 +121,8 @@ class RegisterController extends AbstractController
                 ->getForm();
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                $hash = $encoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($hash);
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash("success", "Le mot de passe a été changé avec succès !");
