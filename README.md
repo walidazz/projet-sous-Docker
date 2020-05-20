@@ -1,8 +1,9 @@
-### A faire
+# A faire
 
+-> Mettre en place le systeme pour changer son mot de passe
 
+-> Penser systeme de signalement
 
+-> systeme mot de passe oublié ? quasi fini mais à verifier
 
-
-mettre en place le formulaire pour les commentaires
-
+-> verifier la systeme de confirmation pour reinitialiser son mot de passe 

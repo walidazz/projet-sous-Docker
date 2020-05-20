@@ -84,7 +84,7 @@ class Comment
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->createdAt; 
     }
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self
