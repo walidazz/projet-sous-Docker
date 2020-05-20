@@ -87,39 +87,22 @@ class RegisterController extends AbstractController
 
     /**
      * Permet de d'ennvoyer un mail de confirmation à l'adresse mail de l'user
-     * @Route("/forgottenPassword", name="forgottenPassword")
+     * @Route("/forgottenPassword", name="forgottenPassword" )
      */
     public function forgottenPassword(MailerService $mailerService, Request $request, EntityManagerInterface $em)
     {
-    //    $username =  $request->get('form');
-        // dd($request);
-        // dd($username);
-        // $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
- 
-
-        $user = new User();
-        
-        $form = $this->createFormBuilder($user)
-            ->add('email', EmailType::class)
-            ->add('save', SubmitType::class, ['label' => 'Reinitialiser le mot de passe '])
-            ->getForm();
-        $form->handleRequest($request);
-        $token = $this->generateToken();
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->isMethod('POST')) {
+            $username = $request->get('_email');
+            $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
+            $token = $this->generateToken();
             $user->setTokenConfirmation($this->generateToken());
-            // $user->setEmail($user->getUsername());
-            // $user->setPseudo($user->getPseudo());
-            // $user->setPassword($user->getPassword());
             $em->persist($user);
             $em->flush();
             $mailerService->sendToken($token, $user->getEmail(), $user->getPseudo(), 'resetPassword.html.twig');
             $this->addFlash("success", "un mail vient d'être envoyé sur votre adresse mail pour changer votre mot de passe");
             return $this->redirectToRoute('homepage');
         }
-
-        return $this->render('user/forgottenPassword.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->render('user/forgottenPassword.html.twig', []);
     }
 
 
@@ -140,7 +123,6 @@ class RegisterController extends AbstractController
                 ->add('passwordConfirm', PasswordType::class,  ['attr' =>  ['placeholder' => 'Confirmez votre mot de passe', 'required' => true]])
                 ->add('save', SubmitType::class, ['label' => 'Reinitialiser le mot de passe '])
                 ->getForm();
-
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($user);
