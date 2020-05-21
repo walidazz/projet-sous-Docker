@@ -45,8 +45,6 @@ class ArticleController extends AbstractController
      */
     public function articleAjax(Article $article): Response
     {
-
-
         return $this->json(['title' => $article->getTitle(), 200]);
     }
 }

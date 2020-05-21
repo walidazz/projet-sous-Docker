@@ -31,7 +31,6 @@ class RegisterController extends AbstractController
             $user->setPassword($hash);
             $user->setTokenConfirmation($this->generateToken());
             $em->persist($user);
-
             $em->flush();
             $token = $user->getTokenConfirmation();
             $username = $user->getUsername();
@@ -70,8 +69,6 @@ class RegisterController extends AbstractController
         }
     }
 
-
-
     /**
      * Permet de genener un token
      *@return string
@@ -80,10 +77,6 @@ class RegisterController extends AbstractController
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
-
-
-
-
 
     /**
      * Permet de d'ennvoyer un mail de confirmation à l'adresse mail de l'user
