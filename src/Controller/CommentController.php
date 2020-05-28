@@ -14,7 +14,7 @@ class CommentController extends AbstractController
     /**
      * @Route("/comment/new/{id}", name="comment_new")
      */
-    public function index(Article $article, Request $request, EntityManagerInterface $em)
+    public function new(Article $article, Request $request, EntityManagerInterface $em)
     {
         $content = $request->get('content');
         $user = $this->getUser();
@@ -36,8 +36,6 @@ class CommentController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->request->get('_token'))) {
             $em->remove($comment);
             $em->flush();
-            $referer = $request->headers->get('referer');
-           
             $this->addFlash('success', 'Commentaire supprimé!');
         }
         return $this->redirect($referer);
