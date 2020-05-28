@@ -11,10 +11,11 @@
         <p class="card-text"> Content: {{article.content}}</p>
     </div>
 </div>
-
+panier_add
 <a class="btn btn-warning " id="ajax-link" href="{{path('articleAjax', {'id' : article.id})}}">Clique ici si tu veux
     voir de l'ajax</a>
-
+<a class="btn btn-secondary " href="{{path('panier_add', {'id' : article.id})}}">Ajouter au panier
+</a>
 <span id="rep"></span>
 <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
 

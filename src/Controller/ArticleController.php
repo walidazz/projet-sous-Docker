@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,6 +30,8 @@ class ArticleController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
+
         return $this->render('article/list.html.twig', ['articles' => $articles]);
     }
 
@@ -46,5 +49,48 @@ class ArticleController extends AbstractController
     public function articleAjax(Article $article): Response
     {
         return $this->json(['title' => $article->getTitle(), 200]);
+    }
+
+
+    /**
+     * @Route("/panier/", name="panier_index" )
+     */
+    public function favorite(SessionInterface $session, ArticleRepository $repo)
+    {
+        $panier = $session->get('panier', []);
+        $panierWithData = [];
+
+        foreach ($panier as $id => $value) {
+          
+                $panierWithData[] = [
+                    'product' => $repo->find($id),
+                    
+                ];   
+        }
+        // dd($panierWithData);
+        return $this->render(
+            'article/favorite.html.twig',
+            ['items' => $panierWithData]
+        );
+    }
+
+    /**
+     * @Route("/panier/add/{id}", name="panier_add" )
+     */
+    public function addFavorite($id, SessionInterface $session)
+    {
+
+
+        $panier = $session->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            $panier[$id]++;
+        } else {
+            $panier[$id] = 1;
+        }
+
+        $panier = $session->set('panier', $panier);
+
+        return $this->redirectToRoute('panier_index');
     }
 }
