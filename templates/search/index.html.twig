@@ -1,14 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des articles{% endblock %}
+{% block title %}Resultat de recherche{% endblock %}
 
 {% block body %}
 
 
-{% if articles %}
+{% if articles|length == 0 %}
+
+<div class="container d-flex h-100">
+    <div class="row mx-auto align-self-center">
+    Aucun resultat trouvé !
+    </div>
+</div>
 
 
-<div class="container">
+
+
+{% else %}
+
+<div  class="container">
     <div class="row">
         <div class="col">
 
@@ -33,9 +43,6 @@
 
         </div>
 
-        {% else %}
-
-        <p>Aucun articles trouvés !</p>
 
         {% endif %}
 
@@ -52,5 +59,4 @@
 
     </div>
 </div>
-
 {% endblock %}

@@ -16,6 +16,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
+
+
 class ArticleController extends AbstractController
 {
     /**
@@ -30,8 +32,6 @@ class ArticleController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-
-
         return $this->render('article/list.html.twig', ['articles' => $articles]);
     }
 
@@ -61,11 +61,11 @@ class ArticleController extends AbstractController
         $panierWithData = [];
 
         foreach ($panier as $id => $value) {
-          
-                $panierWithData[] = [
-                    'product' => $repo->find($id),
-                    
-                ];   
+
+            $panierWithData[] = [
+                'product' => $repo->find($id) ,
+
+            ];
         }
         // dd($panierWithData);
         return $this->render(
@@ -73,6 +73,7 @@ class ArticleController extends AbstractController
             ['items' => $panierWithData]
         );
     }
+
 
     /**
      * @Route("/panier/add/{id}", name="panier_add" )
@@ -82,7 +83,6 @@ class ArticleController extends AbstractController
 
 
         $panier = $session->get('panier', []);
-
         if (!empty($panier[$id])) {
             $panier[$id]++;
         } else {

@@ -21,19 +21,31 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
 
-/**
- * @return Query
- */
-public function findAllQuery() :Query
-{
+    /**
+     * @return Query
+     */
+    public function findAllQuery(): Query
+    {
 
-    return $this->createQueryBuilder('a')
+        return $this->createQueryBuilder('a')
 
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery();
- 
-}
+    }
+
+
+    public function findLike($key): Query
+    {
+        return $this->getEntityManager()
+            ->createQuery("
+                SELECT a FROM App\Entity\Article a
+                WHERE a.title LIKE :key ")
+            ->setParameter('key', '%' . $key . '%');
+        
+    
+    }
+
 
     // /**
     //  * @return Article[] Returns an array of Article objects

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vos Favoris{% endblock %}
+{% block title %} Vos Favoris {% endblock %}
 
 {% block body %}
+
 <div class="mx-auto col-6-md">
 
     {% if items | length > 0 %}
@@ -10,6 +11,7 @@
     {% for item in items %}
 
     {{item.product.title}}
+
     {% endfor %}
 
     {% else %}

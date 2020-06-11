@@ -1,5 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 
+body,
+html {
+  height: 100%;
+}
+
 .navbar {
   background-color: rgb(54, 11, 54) !important;
 }

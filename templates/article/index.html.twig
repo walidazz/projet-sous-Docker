@@ -3,7 +3,10 @@
 {% block title %}Show{% endblock %}
 
 {% block body %}
-<div class="card m-2" style="width: 18rem;">
+
+
+
+<div class="col-md-8 mx-auto p-3 ">
     <img class="card-img-top" src="{{asset('images/articles/' ~ article.image)}}" alt="Card image cap">
     <div class="card-body">
         <p class="card-text"> Title : {{article.title}}</p>
@@ -11,20 +14,26 @@
         <p class="card-text"> Content: {{article.content}}</p>
     </div>
 </div>
-panier_add
+
+
+
+
+
+
+
 <a class="btn btn-warning " id="ajax-link" href="{{path('articleAjax', {'id' : article.id})}}">Clique ici si tu veux
     voir de l'ajax</a>
 <a class="btn btn-secondary " href="{{path('panier_add', {'id' : article.id})}}">Ajouter au panier
 </a>
 <span id="rep"></span>
+
+{% if app.user %}
 <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
 
-    <img src="{{asset('images/users/' ~ app.user.avatar)}}" alt="avatar">
     <textarea name="content" id="" cols="100" rows="5"></textarea>
     <input type="submit" value="Poster">
 </form>
-
-
+{% endif %}
 
 
 {% for comment in article.comments %}
