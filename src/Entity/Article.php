@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -289,6 +290,7 @@ class Article
     }
 
 
+
     /**
      * Permet d'initialiser le slug !
      *
@@ -325,5 +327,11 @@ class Article
     public function __toString()
     {
         return $this->title;
+    }
+
+
+    public function double($nombre): int
+    {
+        return $nombre * 2;
     }
 }
