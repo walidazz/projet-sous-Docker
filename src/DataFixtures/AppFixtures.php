@@ -31,30 +31,24 @@ class AppFixtures extends Fixture
         $slugify = new Slugify();
         $tabRaison = ['Spam', 'Arnaque', 'Comportement irrespectueux', 'Racisme', 'Incitation à la haine'];
         $tabCategory = ['Actualité', 'Films', 'Séries', 'Anime'];
-
+        $tabTag = ['Horreur', 'Adulte', 'Science-Fiction'];
 
 
         $date = new \DateTime();
-        $admin = new User();
-        $admin->setEmail('walidazzimani@gmail.com')
-            ->setPassword($this->encoder->encodePassword($admin, 'sharingan.'))
-            ->setCreatedAt(new \DateTime('now'))
-            ->setBirthday($date->setDate(1994, 11, 06))
-            ->setSexe('homme')
-            ->setAvatar("https://picsum.photos/200")
-            ->setPseudo('Admin')
-            ->setRoles(['ROLE_ADMIN'])
-            ->setEnable(true);
-        $manager->persist($admin);
+        // $admin = new User();
+        // $admin->setEmail('walidazzimani@gmail.com')
+        //     ->setPassword($this->encoder->encodePassword($admin, 'sharingan.'))
+        //     ->setCreatedAt(new \DateTime('now'))
+        //     ->setBirthday($date->setDate(1994, 11, 06))
+        //     ->setSexe('homme')
+        //     ->setAvatar("https://picsum.photos/200")
+        //     ->setPseudo('Admin')
+        //     ->setRoles(['ROLE_ADMIN'])
+        //     ->setEnable(true);
+        // $manager->persist($admin);
 
 
-
-
-
-
-        for ($i = 0; $i < 25; $i++) {
-
-            $user = new User();
+    $user = new User();
             $user->setEmail($faker->email())
                 ->setPassword($this->encoder->encodePassword($user, 'sharingan.'))
                 ->setCreatedAt(new \DateTime('now'))
@@ -67,6 +61,19 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
 
+        $tags = new Tag();
+        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)]); 
+        $manager->persist($tags);
+
+            $category = new Category();
+            $category->setLibelle($tabCategory[mt_rand(0, count($tabCategory) - 1)]);
+            $manager->persist($category);
+
+
+
+        for ($i = 0; $i < 25; $i++) {
+
+        
 
 
             $article = new Article();
@@ -76,37 +83,33 @@ class AppFixtures extends Fixture
                 ->setIntroduction($faker->paragraph())
                 ->setTitle('Article de ' . $article->getAuteur())
                 ->setImage('https://picsum.photos/200')
-                ->setSlug($slugify->slugify($article->getTitle()));
+                ->setSlug($slugify->slugify($article->getTitle()))
+                ->addTag($tags)
+                ->setCategory($category);
             $manager->persist($article);
 
-            $category = new Category();
-            $category->setLibelle($tabCategory[mt_rand(0, count($tabCategory) - 1)])
-                ->addArticle($article);
-            $manager->persist($category);
 
 
 
 
-            $commentaire = new Comment();
-            $commentaire->setArticle($article)
-                ->setAuteur($user)
-                ->setContent($faker->paragraph())
-                ->setCreatedAt(new \DateTime('now'));
-            $manager->persist($commentaire);
+        //     $commentaire = new Comment();
+        //     $commentaire->setArticle($article)
+        //         ->setAuteur($user)
+        //         ->setContent($faker->paragraph())
+        //         ->setCreatedAt(new \DateTime('now'));
+        //     $manager->persist($commentaire);
 
-            $tabTag = ['Comique', 'Horreur', 'Documentaire', 'Science-fiction', 'Ecchi', 'Drame', 'Adulte', 'Jeux-Vidéos'];
+        //     $tabTag = ['Comique', 'Horreur', 'Documentaire', 'Science-fiction', 'Ecchi', 'Drame', 'Adulte', 'Jeux-Vidéos'];
 
       
 
-        $tags = new Tag();
-        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)])
-        ->addArticle($article);
-        $manager->persist($tags);
+    
 
-        }
+        // }
 
 
 
-        $manager->flush();
+        // $manager->flush();
     }
+}
 }

@@ -8,4 +8,4 @@
 
 -> verifier la systeme de confirmation pour reinitialiser son mot de passe -> à checker
 
--> mettre en place la barre de recherche pour chercher un article
+-> mettre en place la barre de recherche pour chercher un article  -> ok
