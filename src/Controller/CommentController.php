@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentController extends AbstractController
 {
     /**
+     * 
      * @Route("/comment/new/{id}", name="comment_new")
      */
     public function new(Article $article, Request $request, EntityManagerInterface $em)

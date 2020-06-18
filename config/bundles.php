@@ -18,4 +18,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+    Beelab\Recaptcha2Bundle\BeelabRecaptcha2Bundle::class => ['all' => true],
 ];

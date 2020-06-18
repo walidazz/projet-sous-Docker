@@ -43,6 +43,9 @@ class User implements UserInterface, Serializable
      */
     private $roles = [];
 
+    protected $captcha;
+
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -449,6 +452,26 @@ class User implements UserInterface, Serializable
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of captcha
+     */ 
+    public function getCaptcha()
+    {
+        return $this->captcha;
+    }
+
+    /**
+     * Set the value of captcha
+     *
+     * @return  self
+     */ 
+    public function setCaptcha($captcha)
+    {
+        $this->captcha = $captcha;
 
         return $this;
     }
