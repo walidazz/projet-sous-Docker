@@ -38,11 +38,14 @@
 
         <div class="text-center m-2">
             <button class="btn btn-sm btn-success" type="submit">
-               Connexion
+                Connexion
             </button>
         </div>
 </form>
 
+<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
+    <span>Login with Google</span>
+</a>
 </div>
 
 {% endblock %}

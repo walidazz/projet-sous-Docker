@@ -1,0 +1,8 @@
+hwi_oauth:
+    firewall_name: main
+    resource_owners:
+        any_name:
+            type:                google
+            client_id:           <client_id>
+            client_secret:       <client_secret>
+            scope: "email"
