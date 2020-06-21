@@ -42,10 +42,9 @@
             </button>
         </div>
 </form>
+<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-danger btn-sm"> Connexion avec
+    Google</a>
 
-<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
-    <span>Login with Google</span>
-</a>
 </div>
 
 {% endblock %}

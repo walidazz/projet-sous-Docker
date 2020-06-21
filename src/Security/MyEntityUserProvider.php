@@ -36,6 +36,11 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
             $user = new User();
 
             $user->setEmail($response->getEmail());
+            $user->setPassword($response->getAccessToken());
+            $user->setPseudo($response->getNickname());
+            // $user->setAvatar($response->getProfilePicture());
+            $user->setRoles(['ROLE_USER']);
+
 
             $user->$setterId($username);
             $user->$setterAccessToken($response->getAccessToken());
@@ -45,8 +50,8 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
 
             return $user;
         }
-        // JUST FOR FACEBOOK
-        $user->setFacebookAccessToken($response->getAccessToken());
+        // JUST FOR Google
+        $user->setGoogleAccessToken($response->getAccessToken());
 
         return $user;
     }
