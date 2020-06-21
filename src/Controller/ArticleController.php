@@ -22,7 +22,7 @@ class ArticleController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
     {
 
-        $query = $repo->findAllQuery();
+        $query = $repo->findAllQuery(); 
         $articles =  $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),

@@ -24,5 +24,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    hwi_oauth.user.provider:
+        class: App\Security\MyEntityUserProvider
+        arguments:
+            - '@doctrine'
+            - 'App\Entity\User'
+            - {google: googleID}
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

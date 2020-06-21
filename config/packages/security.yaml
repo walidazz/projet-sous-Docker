@@ -10,6 +10,12 @@ security:
       entity:
         class: App\Entity\User
         property: email
+    # lazy provider: app_user_provider
+    guard:
+      entity:
+        class: App\Security\LoginFormAuthenticator
+        
+        # providers: app_user_provider: entity: class: App\Entity\User property: email
 
   firewalls:
     dev:

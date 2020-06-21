@@ -53,6 +53,17 @@ class User implements UserInterface, Serializable
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $googleID;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $googleAccessToken;
+
+
+    /**
      * @Assert\EqualTo(propertyPath="password",message="Les mots de passes ne correspondent pas !")
      */
     private $passwordConfirm;
@@ -472,6 +483,46 @@ class User implements UserInterface, Serializable
     public function setCaptcha($captcha)
     {
         $this->captcha = $captcha;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of googleID
+     */ 
+    public function getGoogleID()
+    {
+        return $this->googleID;
+    }
+
+    /**
+     * Set the value of googleID
+     *
+     * @return  self
+     */ 
+    public function setGoogleID($googleID)
+    {
+        $this->googleID = $googleID;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of googleAccessToken
+     */ 
+    public function getGoogleAccessToken()
+    {
+        return $this->googleAccessToken;
+    }
+
+    /**
+     * Set the value of googleAccessToken
+     *
+     * @return  self
+     */ 
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->googleAccessToken = $googleAccessToken;
 
         return $this;
     }
