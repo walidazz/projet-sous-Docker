@@ -86,13 +86,18 @@ class RegisterController extends AbstractController
         if ($request->isMethod('POST')) {
             $username = $request->get('_email');
             $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
-            $token = $this->generateToken();
-            $user->setTokenConfirmation($token);
-            $em->persist($user);
-            $em->flush();
-            $mailerService->sendToken($token, $user->getEmail(), $user->getUsername(), 'resetPassword.html.twig');
-            $this->addFlash("success", "un mail vient d'être envoyé sur votre adresse mail pour changer votre mot de passe");
-            return $this->redirectToRoute('homepage');
+            if ($user != null) {
+                $token = $this->generateToken();
+                $user->setTokenConfirmation($token);
+                $em->persist($user);
+                $em->flush();
+                $mailerService->sendToken($token, $user->getEmail(), $user->getUsername(), 'resetPassword.html.twig');
+                $this->addFlash("success", "un mail vient d'être envoyé sur votre adresse mail pour changer votre mot de passe");
+                return $this->redirectToRoute('homepage');
+            } else {
+                $this->addFlash("danger", "identifiant inconnu");
+                return $this->redirectToRoute('homepage');
+            }
         }
         return $this->render('user/forgottenPassword.html.twig', []);
     }
@@ -105,21 +110,31 @@ class RegisterController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
-        if ($token === $user->getTokenConfirmation()) {
-            $form = $this->createFormBuilder($user)
-                ->add('password', PasswordType::class,  ['attr' =>  ['placeholder' => 'Entrez un mot de passe', 'required' => true]])
-                ->add('passwordConfirm', PasswordType::class,  ['attr' =>  ['placeholder' => 'Confirmez votre mot de passe', 'required' => true]])
-                ->add('save', SubmitType::class, ['label' => 'Reinitialiser le mot de passe '])
-                ->getForm();
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $hash = $encoder->encodePassword($user, $user->getPassword());
-                $user->setPassword($hash);
-                $em->persist($user);
-                $em->flush();
-                $this->addFlash("success", "Le mot de passe a été changé avec succès !");
-                return $this->redirectToRoute('app_login');
+
+        if ($user != null) {
+
+
+            if ($token === $user->getTokenConfirmation()) {
+                $form = $this->createFormBuilder($user)
+                    ->add('password', PasswordType::class,  ['attr' =>  ['placeholder' => 'Entrez un mot de passe', 'required' => true]])
+                    ->add('passwordConfirm', PasswordType::class,  ['attr' =>  ['placeholder' => 'Confirmez votre mot de passe', 'required' => true]])
+                    ->add('save', SubmitType::class, ['label' => 'Reinitialiser le mot de passe '])
+                    ->getForm();
+                $form->handleRequest($request);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+                    $user->setPassword($hash);
+                    $em->persist($user);
+                    $em->flush();
+                    $this->addFlash("success", "Le mot de passe a été changé avec succès !");
+                    return $this->redirectToRoute('app_login');
+                }
             }
+        } else {
+
+            $this->addFlash("danger", "Aucun compte connu sous ses identifiants !");
+
+            return $this->redirectToRoute('homepage');
         }
         return $this->render('user/changePassword.html.twig', [
             'form' => $form->createView()

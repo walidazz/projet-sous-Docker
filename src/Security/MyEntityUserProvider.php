@@ -41,7 +41,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
             // $user->setAvatar($response->getProfilePicture());
             $user->setRoles(['ROLE_USER']);
 
-
             $user->$setterId($username);
             $user->$setterAccessToken($response->getAccessToken());
 
@@ -131,9 +130,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
     private function updateUser(UserInterface $user, UserResponseInterface $response)
     {
         $user->setEmail($response->getEmail());
-
-
-
         $this->em->persist($user);
         $this->em->flush();
     }
