@@ -28,18 +28,15 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
 
         // unique integer
         $username = $response->getUsername();
-
-
-
         if (null === $user = $this->findUser(array($this->properties[$resourceOwnerName] => $username))) {
             // TODO: Create the user
             $user = new User();
 
-            $user->setEmail($response->getEmail());
-            $user->setPassword($response->getAccessToken());
-            $user->setPseudo($response->getNickname());
-            // $user->setAvatar($response->getProfilePicture());
-            $user->setRoles(['ROLE_USER']);
+            $user->setEmail($response->getEmail())
+                ->setAvatar($response->getProfilePicture())
+                ->setPseudo($response->getNickname())
+                ->setEnable(true);
+
 
             $user->$setterId($username);
             $user->$setterAccessToken($response->getAccessToken());
@@ -74,7 +71,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
             // 'disconnect' previously connected users
             $this->disconnect($previousUser, $response);
         }
-
 
         $serviceName = $response->getResourceOwner()->getName();
         $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
@@ -129,7 +125,10 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
      */
     private function updateUser(UserInterface $user, UserResponseInterface $response)
     {
-        $user->setEmail($response->getEmail());
+        $user->setEmail($response->getEmail())
+            ->setAvatar($response->getProfilePicture())
+            ->setPseudo($response->getNickname());
+
         $this->em->persist($user);
         $this->em->flush();
     }

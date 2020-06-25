@@ -26,8 +26,7 @@ class RegistrationType extends AbstractType
                 // You can use RecaptchaSubmitType
                 // "groups" option is not mandatory
                 'constraints' => new Recaptcha2(),
-            ])
-            ;
+            ]);
     }
 
 

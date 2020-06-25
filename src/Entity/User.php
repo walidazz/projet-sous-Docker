@@ -35,6 +35,7 @@ class User implements UserInterface, Serializable
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -49,6 +50,7 @@ class User implements UserInterface, Serializable
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -70,6 +72,7 @@ class User implements UserInterface, Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $pseudo;
 
@@ -469,7 +472,7 @@ class User implements UserInterface, Serializable
 
     /**
      * Get the value of captcha
-     */ 
+     */
     public function getCaptcha()
     {
         return $this->captcha;
@@ -479,7 +482,7 @@ class User implements UserInterface, Serializable
      * Set the value of captcha
      *
      * @return  self
-     */ 
+     */
     public function setCaptcha($captcha)
     {
         $this->captcha = $captcha;
@@ -489,7 +492,7 @@ class User implements UserInterface, Serializable
 
     /**
      * Get the value of googleID
-     */ 
+     */
     public function getGoogleID()
     {
         return $this->googleID;
@@ -499,7 +502,7 @@ class User implements UserInterface, Serializable
      * Set the value of googleID
      *
      * @return  self
-     */ 
+     */
     public function setGoogleID($googleID)
     {
         $this->googleID = $googleID;
@@ -509,7 +512,7 @@ class User implements UserInterface, Serializable
 
     /**
      * Get the value of googleAccessToken
-     */ 
+     */
     public function getGoogleAccessToken()
     {
         return $this->googleAccessToken;
@@ -519,7 +522,7 @@ class User implements UserInterface, Serializable
      * Set the value of googleAccessToken
      *
      * @return  self
-     */ 
+     */
     public function setGoogleAccessToken($googleAccessToken)
     {
         $this->googleAccessToken = $googleAccessToken;

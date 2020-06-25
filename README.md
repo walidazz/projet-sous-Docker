@@ -9,3 +9,6 @@
 -> verifier la systeme de confirmation pour reinitialiser son mot de passe -> à checker
 
 -> mettre en place la barre de recherche pour chercher un article  -> ok
+
+FIXME: probleme de connexion via Google avec un compte déja existant
+->connexion avec l'access token

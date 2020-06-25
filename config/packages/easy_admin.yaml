@@ -37,7 +37,7 @@ easy_admin:
             - { property: 'content', type: 'text_editor' }
             - category
             - { property: 'tags', type_options: { 'by_reference': false } }
-            - auteur
+            - auteur 
       list:
         fields: 
             - id
