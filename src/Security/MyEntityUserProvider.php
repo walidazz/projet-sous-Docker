@@ -3,7 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\User\UserInterface;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
@@ -28,24 +28,31 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
 
         // unique integer
         $username = $response->getUsername();
-        if (null === $user = $this->findUser(array($this->properties[$resourceOwnerName] => $username))) {
-            // TODO: Create the user
+
+        $email = $response->getEmail();
+
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        if ($user === null) {
             $user = new User();
-
-            $user->setEmail($response->getEmail())
+            $user->setPseudo($response->getNickname())
+                ->setEmail($email)
                 ->setAvatar($response->getProfilePicture())
-                ->setPseudo($response->getNickname())
-                ->setEnable(true);
+                ->setEnable(true); 
 
-
-            $user->$setterId($username);
-            $user->$setterAccessToken($response->getAccessToken());
-
-            $this->em->persist($user);
-            $this->em->flush();
-
-            return $user;
         }
+        // $user = $this->findUser(array($this->properties[$resourceOwnerName] => $username));
+        // TODO: Create the user
+
+
+        $user->$setterId($username);
+        $user->$setterAccessToken($response->getAccessToken());
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+
         // JUST FOR Google
         $user->setGoogleAccessToken($response->getAccessToken());
 

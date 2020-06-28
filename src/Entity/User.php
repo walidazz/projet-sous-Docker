@@ -18,10 +18,14 @@ use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="email déja utilisée")
  * @Vich\Uploadable
  */
 class User implements UserInterface, Serializable
@@ -49,7 +53,7 @@ class User implements UserInterface, Serializable
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string" , nullable=true)
      * @Assert\NotBlank
      */
     private $password;
@@ -71,7 +75,7 @@ class User implements UserInterface, Serializable
     private $passwordConfirm;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      * @Assert\NotBlank
      */
     private $pseudo;

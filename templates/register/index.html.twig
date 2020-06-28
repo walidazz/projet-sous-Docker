@@ -8,18 +8,19 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="text-center">
-        <input class="btn btn-primary btn-md" type="submit" value="S'incrire">
+        <input class="btn btn-primary btn-md" type="submit" value="S'inscrire">
     </div>
     {{ form_end(form) }}
 
-<hr>
-<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-danger btn-sm"> S'inscrire avec
-    Google</a>
-    
+    <hr>
+    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-danger btn-sm"> Continuer avec Google</a>
+
 </div>
 
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 
 
 {% endblock %}

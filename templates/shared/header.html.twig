@@ -45,12 +45,27 @@
             </form>
         </div>
     </div>
-    <div class="float-right">
+    <div class="float-right mx-auto">
         {% if is_granted('ROLE_USER') %}
-        <div class="btn-group dropleft">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                {{app.user.pseudo}}
+
+
+        {% if app.user.avatar is not null %}
+
+        {% if app.user.googleID is not null %}
+        <img src="{{app.user.avatar}}" style="width:3em" class=" rounded-circle">
+
+        {% else %}
+        <img src="{{asset('images/users/' ~ app.user.avatar)}}" style="width:3em" class="  rounded-circle">
+
+        {% endif %}
+
+
+        {% endif %}
+        <div class="btn-group dropdown">
+
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            {{app.user.pseudo}}
             </button>
             <div class="dropdown-menu">
 

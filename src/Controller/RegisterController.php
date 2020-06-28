@@ -21,11 +21,18 @@ class RegisterController extends AbstractController
      */
     public function register(Request $request, EntityManagerInterface $em,  UserPasswordEncoderInterface $encoder, MailerService $mailerService)
     {
+        $emailRequest = $request->get('email');
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
+        //TODO: si l'email existe mais qu'il ya pas de password alors on rajoute le password et l'avatar SINON on crée un utilisateur
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //FIXME: à tester demain, faire un $userExist
+            // $emailForm = $request->request->get('registration')['email'];
+            // $userExist = $em->getRepository(User::class)->findOneBy(['email' => $emailForm]);
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setTokenConfirmation($this->generateToken());
