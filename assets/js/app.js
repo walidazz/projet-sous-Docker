@@ -17,7 +17,6 @@ require("bootstrap");
 // import $ from 'jquery';
 
 
-
 // <a href="{{path('admin_comment_delete', {'id' : comment.id})}}" data-action="delete"
 //   data-target="#block_"><i class="fas fa-trash mx-1"></i></a>
 

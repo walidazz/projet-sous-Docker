@@ -30,7 +30,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
         $username = $response->getUsername();
 
         $email = $response->getEmail();
-
         $user = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
 
         if ($user === null) {
@@ -44,19 +43,17 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
         // $user = $this->findUser(array($this->properties[$resourceOwnerName] => $username));
         // TODO: Create the user
 
-
         $user->$setterId($username);
         $user->$setterAccessToken($response->getAccessToken());
 
         $this->em->persist($user);
         $this->em->flush();
-
         return $user;
 
         // JUST FOR Google
-        $user->setGoogleAccessToken($response->getAccessToken());
+      //  $user->setGoogleAccessToken($response->getAccessToken());
 
-        return $user;
+       // return $user;
     }
 
     /**
@@ -81,7 +78,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
 
         $serviceName = $response->getResourceOwner()->getName();
         $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-
         $user->$setter($response->getAccessToken());
 
         $this->updateUser($user, $response);
@@ -104,7 +100,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
         if (!isset($this->properties[$resourceOwnerName])) {
             throw new \RuntimeException(sprintf("No property defined for entity for resource owner '%s'.", $resourceOwnerName));
         }
-
         return $this->properties[$resourceOwnerName];
     }
 
@@ -119,7 +114,6 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
     {
         $property = $this->getProperty($response);
         $accessor = PropertyAccess::createPropertyAccessor();
-
         $accessor->setValue($user, $property, null);
 
         $this->updateUser($user, $response);

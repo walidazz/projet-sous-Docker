@@ -41,9 +41,7 @@ class RegisterController extends AbstractController
             $token = $user->getTokenConfirmation();
             $username = $user->getUsername();
             $email = $user->getEmail();
-
             $mailerService->sendToken($token, $email, $username, 'validateAccount.html.twig');
-
             $this->addFlash('success', 'vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecté');
             return $this->redirectToRoute('app_login');
         }
@@ -119,8 +117,6 @@ class RegisterController extends AbstractController
         $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
 
         if ($user != null) {
-
-
             if ($token === $user->getTokenConfirmation()) {
                 $form = $this->createFormBuilder($user)
                     ->add('password', PasswordType::class,  ['attr' =>  ['placeholder' => 'Entrez un mot de passe', 'required' => true]])

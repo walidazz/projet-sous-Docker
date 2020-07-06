@@ -23,8 +23,6 @@ class RegistrationType extends AbstractType
             ->add('password', PasswordType::class,  ['attr' =>  ['placeholder' => 'Entrez un mot de passe', 'required' => true]])
             ->add('passwordConfirm', PasswordType::class,  ['attr' =>  ['placeholder' => 'Confirmez votre mot de passe', 'required' => true]])
             ->add('captcha', RecaptchaType::class, [
-                // You can use RecaptchaSubmitType
-                // "groups" option is not mandatory
                 'constraints' => new Recaptcha2(),
             ]);
     }
