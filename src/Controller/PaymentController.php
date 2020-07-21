@@ -18,7 +18,7 @@ class PaymentController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $charge = \Stripe\Charge::create([
-                'amount' => 888,
+                'amount' => 500,
                 'currency' => 'eur',
                 'description' => 'dons pour amélioration du site',
                 'source' => 'tok_mastercard',
