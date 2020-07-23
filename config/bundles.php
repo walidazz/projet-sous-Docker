@@ -21,5 +21,4 @@ return [
     Beelab\Recaptcha2Bundle\BeelabRecaptcha2Bundle::class => ['all' => true],
     Http\HttplugBundle\HttplugBundle::class => ['all' => true],
     HWI\Bundle\OAuthBundle\HWIOAuthBundle::class => ['all' => true],
-    
 ];

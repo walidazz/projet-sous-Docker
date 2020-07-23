@@ -1,4 +1,8 @@
 # A faire
 
--> Penser systeme de signalement
--> systeme de paiement stripe
+->faire le maquettage
+
+-> faire les requetes répo et comparer avec celle du controller
+
+-> design
+-> page de contact

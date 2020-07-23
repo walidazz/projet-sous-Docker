@@ -4,6 +4,34 @@
 
 {% block body %}
 
+<section>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="jumbotron p-5 rounded-0 text-center text-white"
+                style="background-image: url('https://believemy.com/uploads/f536b82491a5a3c07e60cf2b977ded35_03b49c2a70d5bf98d966a517f96cfb87.jpeg')">
+                <h4 class="display-4">Inscriptions ouvertes</h4>
+                <p class="lead"> Année 2180-2181</p>
+                <hr class="my-4">
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documents
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Dossier d'inscription</a>
+                        <a class="dropdown-item" href="#">Règlement intérieur</a>
+                        <a class="dropdown-item" href="#">Documents concernant l'internat</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 
 <div class="col-md-8 mx-auto p-3 ">
@@ -61,7 +89,6 @@
 <script src=" https://unpkg.com/axios/dist/axios.min.js "> </script>
 
 <script>
-
     let link = document.querySelector('#ajax-link');
     let rep = document.querySelector('#rep');
     document.querySelector('#ajax-link').addEventListener('click', function (event) {
@@ -75,10 +102,8 @@
 
             rep.innerHTML = title;
 
-        }
-        )
+        })
     })
-
 </script>
 
 
