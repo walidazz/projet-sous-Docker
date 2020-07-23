@@ -46,7 +46,6 @@ class ArticleRepository extends ServiceEntityRepository
  public function findThreeLast()
  {
   return $this->createQueryBuilder('a')
-   ->andWhere('a.exampleField = :val')
    ->orderBy('a.id', 'ASC')
    ->setMaxResults(3)
    ->getQuery()

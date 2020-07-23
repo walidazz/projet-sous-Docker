@@ -5,91 +5,95 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
-
-
+use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function index(PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
-    {
 
-        $query = $repo->findAllQuery(); 
-        $articles =  $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            9
-        );
-        return $this->render('article/list.html.twig', ['articles' => $articles]);
-    }
+ /**
+  * @Route("/", name="homepage")
+  */
+ public function index(ArticleRepository $repo)
+ {
 
-    /**
-     * @Route("/article/show/{slug}", name="article_show")
-     */
-    public function show(Article $article)
-    {
-        return $this->render('article/index.html.twig', ['article' => $article]);
-    }
+  $articles = $repo->findBy([], ['createdAt' => 'DESC'], 3);
 
-    /**
-     * @Route("/articleAjax/{id}", name="articleAjax" )
-     */
-    public function articleAjax(Article $article): Response
-    {
-        return $this->json(['title' => $article->getTitle(), 200]);
-    }
+  return $this->render('article/homepage.html.twig', compact('articles'));
+ }
 
+/**
+ * @Route("/article/list", name="article_list")
+ */
+ public function articlelList(PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
+ {
 
-    /**
-     * @Route("/panier/", name="panier_index" )
-     */
-    public function favorite(SessionInterface $session, ArticleRepository $repo)
-    {
-        $panier = $session->get('panier', []);
-        $panierWithData = [];
+  $query    = $repo->findAllQuery();
+  $articles = $paginator->paginate(
+   $query,
+   $request->query->getInt('page', 1),
+   9
+  );
+  return $this->render('article/list.html.twig', compact('articles'));
+ }
 
-        foreach ($panier as $id => $value) {
+ /**
+  * @Route("/article/show/{slug}", name="article_show")
+  */
+ public function show(Article $article)
+ {
+  return $this->render('article/index.html.twig', ['article' => $article]);
+ }
 
-            $panierWithData[] = [
-                'product' => $repo->find($id) ,
+ /**
+  * @Route("/articleAjax/{id}", name="articleAjax" )
+  */
+ public function articleAjax(Article $article): Response
+ {
+  return $this->json(['title' => $article->getTitle(), 200]);
+ }
 
-            ];
-        }
-        // dd($panierWithData);
-        return $this->render(
-            'article/favorite.html.twig',
-            ['items' => $panierWithData]
-        );
-    }
+ /**
+  * @Route("/panier/", name="panier_index" )
+  */
+ public function favorite(SessionInterface $session, ArticleRepository $repo)
+ {
+  $panier         = $session->get('panier', []);
+  $panierWithData = [];
 
+  foreach ($panier as $id => $value) {
 
-    /**
-     * @Route("/panier/add/{id}", name="panier_add" )
-     */
-    public function addFavorite($id, SessionInterface $session)
-    {
+   $panierWithData[] = [
+    'product' => $repo->find($id),
 
+   ];
+  }
+  // dd($panierWithData);
+  return $this->render(
+   'article/favorite.html.twig',
+   ['items' => $panierWithData]
+  );
+ }
 
-        $panier = $session->get('panier', []);
-        if (!empty($panier[$id])) {
-            $panier[$id]++;
-        } else {
-            $panier[$id] = 1;
-        }
+ /**
+  * @Route("/panier/add/{id}", name="panier_add" )
+  */
+ public function addFavorite($id, SessionInterface $session)
+ {
 
-        $panier = $session->set('panier', $panier);
+  $panier = $session->get('panier', []);
+  if (!empty($panier[$id])) {
+   $panier[$id]++;
+  } else {
+   $panier[$id] = 1;
+  }
 
-        return $this->redirectToRoute('panier_index');
-    }
+  $panier = $session->set('panier', $panier);
 
+  return $this->redirectToRoute('panier_index');
+ }
 
- 
 }
