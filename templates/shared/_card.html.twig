@@ -1,0 +1,16 @@
+<div class="card ">
+    <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) |  imagine_filter('carre')}}"
+        alt="Card image cap">
+    <div class="card-body mb-0">
+        <h5 class="card-title">{{article.title}}</h5>
+        <p class="card-text">{{article.introduction |u.truncate(80, '...')}}</p>
+        <p class="card-text text-right"><small class="text-muted">
+                publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}
+            </small></p>
+        <hr>
+        <div class="text-center">
+            <a class="btn btn-secondary mx-auto" href="{{path('article_show' , {'slug' : article.slug})}}">Voir
+                détail</a>
+        </div>
+    </div>
+</div>

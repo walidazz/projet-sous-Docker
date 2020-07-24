@@ -15,60 +15,58 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
- public function __construct(ManagerRegistry $registry)
- {
-  parent::__construct($registry, Article::class);
- }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Article::class);
+  }
 
- /**
-  * @return Query
-  */
- public function findAllQuery(): Query
- {
+  /**
+   * @return Query
+   */
+  public function findAllQuery(): Query
+  {
 
-  return $this->createQueryBuilder('a')
+    return $this->createQueryBuilder('a')
 
-   ->orderBy('a.createdAt', 'DESC')
-   ->setMaxResults(10)
-   ->getQuery();
- }
+      ->orderBy('a.createdAt', 'DESC')
+      ->setMaxResults(10)
+      ->getQuery();
+  }
 
- public function findLike($key): Query
- {
-  return $this->getEntityManager()
-   ->createQuery("
+  public function findLike($key): Query
+  {
+    return $this->getEntityManager()
+      ->createQuery("
                 SELECT a FROM App\Entity\Article a
                 WHERE a.title LIKE :key ")
-   ->setParameter('key', '%' . $key . '%');
+      ->setParameter('key', '%' . $key . '%');
+  }
 
- }
+  //  public function findThreeLast()
+  //  {
+  //   return $this->createQueryBuilder('a')
+  //    ->orderBy('a.id', 'ASC')
+  //    ->setMaxResults(3)
+  //    ->getQuery()
+  //    ->getResult()
+  //   ;
+  //  }
 
- public function findThreeLast()
- {
-  return $this->createQueryBuilder('a')
-   ->orderBy('a.id', 'ASC')
-   ->setMaxResults(3)
-   ->getQuery()
-   ->getResult()
-  ;
- }
 
-/*
-public function findBestUsers($limit = 2)
-{
-return $this->createQueryBuilder('u')
-->join('u.ads', 'a')
-->join('a.comments', 'c')
-->select('u as user, AVG(c.rating) as avgRatings, COUNT(c) as sumComments')
-->groupBy('u')
-->having('sumComments > 3')
-->orderBy('avgRatings', 'DESC')
-->setMaxResults($limit)
-->getQuery()
-->getResult();
-}
+  public function findThreeLast($value)
+  {
+    return $this->createQueryBuilder('a')
+      ->join('a.category', 'c')
+      // ->select('a as article, c.libelle')
+      ->andWhere('c.libelle = :val')
+      ->setParameter('val', $value)
+      ->orderBy('a.createdAt', 'DESC')
+      ->setMaxResults(3)
+      ->getQuery()
+      ->getResult();
+  }
 
-/*
+  /*
 public function findOneBySomeField($value): ?Article
 {
 return $this->createQueryBuilder('a')
