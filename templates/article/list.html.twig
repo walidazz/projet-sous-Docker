@@ -14,11 +14,12 @@
 
         </div>
         <div class="col-6">
-
+            <h1>hello</h1>
             {% for article in articles %}
 
             <div class="card m-2" style="width: 18rem;">
-                <img class="card-img-top" src="{{asset('images/articles/' ~ article.image)}}" alt="Card image cap">
+                <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) | imagine_filter('carre')}}"
+                    alt="Card image cap">
                 <div class="card-body">
                     <p class="card-text"> Title : {{article.title}}</p>
                     <p class="card-text"> Introduction {{article.introduction}}</p>
