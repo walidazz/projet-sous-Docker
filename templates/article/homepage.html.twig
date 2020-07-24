@@ -5,22 +5,41 @@
 {% block body %}
 
 <div class="container">
-    <section>
+    <section class="m-4 p-3">
         <div class="row">
-            {% for article in articles %}
+            <div class="card-deck">
+                {% for article in articles %}
 
-            <div class="card m-2" style="width: 18rem;">
-                <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) |  imagine_filter('carre')}}"
-                    alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text"> Title : {{article.title}}</p>
-                    <p class="card-text"> Introduction {{article.introduction}}</p>
-                    <p class="card-text"> Content: {{article.content|raw}}</p>
-                    <a class="btn btn-secondary btn-md" href="{{path('article_show' , {'slug' : article.slug})}}">Voir
-                        détail</a>
+
+
+                <div class="card ">
+                    <img class="card-img-top"
+                        src="{{asset('images/articles/' ~ article.image) |  imagine_filter('carre')}}"
+                        alt="Card image cap">
+                    <div class="card-body mb-0">
+                        <h5 class="card-title">{{article.title}}</h5>
+                        <p class="card-text">{{article.introduction |u.truncate(80, '...')}}</p>
+                        <p class="card-text text-right"><small class="text-muted">
+                                publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}
+                            </small></p>
+                        <hr>
+                        <div class="text-center">
+                            <a class="btn btn-secondary mx-auto"
+                                href="{{path('article_show' , {'slug' : article.slug})}}">Voir
+                                détail</a>
+
+                        </div>
+
+
+
+
+
+                    </div>
                 </div>
+
+                {% endfor %}
+
             </div>
-            {% endfor %}
 
         </div>
     </section>
