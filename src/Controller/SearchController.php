@@ -17,7 +17,7 @@ class SearchController extends AbstractController
  {
 
   $content = $request->get('_contenu');
-  $query   = $repo->findLike($content);
+  $query   = $repo->search($content);
 
   $articles = $paginator->paginate(
    $query,

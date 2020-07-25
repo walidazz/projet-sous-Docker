@@ -21,7 +21,7 @@ class ArticleRepository extends ServiceEntityRepository
   }
 
 
-//https://youtu.be/S9yhk4V1Fcg?t=2165
+  //https://youtu.be/S9yhk4V1Fcg?t=2165
 
   /**
    * @return Query
@@ -44,8 +44,14 @@ class ArticleRepository extends ServiceEntityRepository
       ->setParameter('key', '%' . $key . '%');
   }
 
-  public function search($value){
-
+  public function search($mots): Query
+  {
+    return  $this->createQueryBuilder('a')
+      ->where('MATCH_AGAINST(a.title,a.introduction,a.content) AGAINST(:mots boolean)>0')
+      ->setParameter('mots', $mots)
+      ->setMaxResults(10)
+      ->orderBy('a.createdAt', 'DESC')
+      ->getQuery();
   }
 
   //  public function findThreeLast()
