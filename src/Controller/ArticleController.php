@@ -25,8 +25,6 @@ $series = $repo->findThreeLast('Séries');
 $films = $repo->findThreeLast('Films');
 $animes = $repo->findThreeLast('Animés');
 
-
-
   return $this->render('article/homepage.html.twig', compact('series','films','animes'));
  }
 

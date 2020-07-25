@@ -6,3 +6,4 @@
 
 -> design
 -> page de contact
+-> refaire la fonction de recherche avec le match against https://www.youtube.com/watch?v=S9yhk4V1Fcg
