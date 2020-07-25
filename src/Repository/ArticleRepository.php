@@ -20,12 +20,14 @@ class ArticleRepository extends ServiceEntityRepository
     parent::__construct($registry, Article::class);
   }
 
+
+//https://youtu.be/S9yhk4V1Fcg?t=2165
+
   /**
    * @return Query
    */
   public function findAllQuery(): Query
   {
-
     return $this->createQueryBuilder('a')
 
       ->orderBy('a.createdAt', 'DESC')
@@ -40,6 +42,10 @@ class ArticleRepository extends ServiceEntityRepository
                 SELECT a FROM App\Entity\Article a
                 WHERE a.title LIKE :key ")
       ->setParameter('key', '%' . $key . '%');
+  }
+
+  public function search($value){
+
   }
 
   //  public function findThreeLast()

@@ -3,19 +3,22 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
+use phpDocumentor\Reflection\Types\Integer;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Table(name="article", indexes={@ORM\Index(columns={"title","content","introduction"},flags={"fulltext"})})
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
