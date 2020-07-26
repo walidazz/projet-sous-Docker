@@ -51,35 +51,35 @@ $animes = $repo->findThreeLast('Animés');
   return $this->render('article/index.html.twig', ['article' => $article]);
  }
 
- /**
-  * @Route("/articleAjax/{id}", name="articleAjax" )
-  */
- public function articleAjax(Article $article): Response
- {
-  return $this->json(['title' => $article->getTitle(), 200]);
- }
+//  /**
+//   * @Route("/articleAjax/{id}", name="articleAjax" )
+//   */
+//  public function articleAjax(Article $article): Response
+//  {
+//   return $this->json(['title' => $article->getTitle(), 200]);
+//  }
 
- /**
-  * @Route("/panier/", name="panier_index" )
-  */
- public function favorite(SessionInterface $session, ArticleRepository $repo)
- {
-  $panier         = $session->get('panier', []);
-  $panierWithData = [];
+//  /**
+//   * @Route("/panier/", name="panier_index" )
+//   */
+//  public function favorite(SessionInterface $session, ArticleRepository $repo)
+//  {
+//   $panier         = $session->get('panier', []);
+//   $panierWithData = [];
 
-  foreach ($panier as $id => $value) {
+//   foreach ($panier as $id => $value) {
 
-   $panierWithData[] = [
-    'product' => $repo->find($id),
+//    $panierWithData[] = [
+//     'product' => $repo->find($id),
 
-   ];
-  }
-  // dd($panierWithData);
-  return $this->render(
-   'article/favorite.html.twig',
-   ['items' => $panierWithData]
-  );
- }
+//    ];
+//   }
+//   // dd($panierWithData);
+//   return $this->render(
+//    'article/favorite.html.twig',
+//    ['items' => $panierWithData]
+//   );
+//  }
 
  /**
   * @Route("/panier/add/{id}", name="panier_add" )

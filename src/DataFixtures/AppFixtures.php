@@ -98,7 +98,7 @@ class AppFixtures extends Fixture
                 ->setCreatedAt(new \DateTime('now'))
                 ->setIntroduction($faker->paragraph())
                 ->setTitle('Article de ' . $article->getAuteur())
-                ->setImage('https://picsum.photos/200')
+                ->setImage('standard.jpg')
                 ->setSlug($slugify->slugify($article->getTitle()))
                 ->addTag($tagsTabs[mt_rand(0, count($tagsTabs) - 1)])
                 ->setCategory($categories[mt_rand(0, count($categories) - 1)]);

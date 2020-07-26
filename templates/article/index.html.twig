@@ -35,7 +35,8 @@
 
 
 <div class="col-md-8 mx-auto p-3 ">
-    <img class="card-img-top" src="{{asset('images/articles/' ~ article.image)}}" alt="Card image cap">
+    <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) | imagine_filter('detail') }}"
+        alt="Card image cap">
     <div class="card-body">
         <p class="card-text"> Title : {{article.title}}</p>
         <p class="card-text"> Introduction {{article.introduction}}</p>
@@ -48,12 +49,6 @@
 
 
 
-
-<a class="btn btn-warning " id="ajax-link" href="{{path('articleAjax', {'id' : article.id})}}">Clique ici si tu veux
-    voir de l'ajax</a>
-<a class="btn btn-secondary " href="{{path('panier_add', {'id' : article.id})}}">Ajouter au panier
-</a>
-<span id="rep"></span>
 
 {% if app.user %}
 <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
@@ -83,28 +78,3 @@
 {% endfor %}
 
 {% endblock %}
-
-
-{% block javascripts %}
-<script src=" https://unpkg.com/axios/dist/axios.min.js "> </script>
-
-<script>
-    let link = document.querySelector('#ajax-link');
-    let rep = document.querySelector('#rep');
-    document.querySelector('#ajax-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        const url = link.href;
-
-
-        axios.get(url).then(function (response) {
-
-            let title = response.data.title;
-
-            rep.innerHTML = title;
-
-        })
-    })
-</script>
-
-
-{% endblock javascripts %}
