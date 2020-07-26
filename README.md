@@ -1,9 +1,16 @@
 # A faire
+-> faire systeme de signalement pour les reports comments / users 
 
-->faire le maquettage
 
--> faire les requetes répo et comparer avec celle du controller
+ReportUser 
+ReportComments
+
+
+
+
+
+-> maquetter la page de recherche 
+-> page de contact
 
 -> design
--> page de contact
--> refaire la fonction de recherche avec le match against https://www.youtube.com/watch?v=S9yhk4V1Fcg
+

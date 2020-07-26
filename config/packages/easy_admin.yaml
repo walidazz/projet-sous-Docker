@@ -24,7 +24,6 @@ easy_admin:
             - { property: 'password', type: 'password'}
             - { property: 'roles', label: 'Rôles', type: choice, type_options: {expanded: true, multiple: true, choices: {'Utilisateur':'ROLE_USER', 'Administrateur':'ROLE_ADMIN'}}}
             - sexe
-            - birthday
             - { property: 'imageFile', type: 'file' } 
 
     Article:

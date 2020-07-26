@@ -48,32 +48,32 @@ class AppFixtures extends Fixture
         // $manager->persist($admin);
 
 
-    $user = new User();
-            $user->setEmail($faker->email())
-                ->setPassword($this->encoder->encodePassword($user, 'sharingan.'))
-                ->setCreatedAt(new \DateTime('now'))
-                ->setBirthday($date->setDate(1994, 11, 06))
-                ->setSexe($genre[mt_rand(0, count($genre) - 1)])
-                ->setAvatar("https://picsum.photos/200")
-                ->setPseudo($faker->userName())
-                ->setRoles(['ROLE_USER'])
-                ->setEnable(true);
-            $manager->persist($user);
+        $user = new User();
+        $user->setEmail($faker->email())
+            ->setPassword($this->encoder->encodePassword($user, 'sharingan.'))
+            ->setCreatedAt(new \DateTime('now'))
+            ->setBirthday($date->setDate(1994, 11, 06))
+            ->setSexe($genre[mt_rand(0, count($genre) - 1)])
+            ->setAvatar("https://picsum.photos/200")
+            ->setPseudo($faker->userName())
+            ->setRoles(['ROLE_USER'])
+            ->setEnable(true);
+        $manager->persist($user);
 
 
         $tags = new Tag();
-        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)]); 
+        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)]);
         $manager->persist($tags);
 
-            $category = new Category();
-            $category->setLibelle($tabCategory[mt_rand(0, count($tabCategory) - 1)]);
-            $manager->persist($category);
+        $category = new Category();
+        $category->setLibelle($tabCategory[mt_rand(0, count($tabCategory) - 1)]);
+        $manager->persist($category);
 
 
 
         for ($i = 0; $i < 25; $i++) {
 
-        
+
 
 
             $article = new Article();
@@ -92,24 +92,24 @@ class AppFixtures extends Fixture
 
 
 
-        //     $commentaire = new Comment();
-        //     $commentaire->setArticle($article)
-        //         ->setAuteur($user)
-        //         ->setContent($faker->paragraph())
-        //         ->setCreatedAt(new \DateTime('now'));
-        //     $manager->persist($commentaire);
+            //     $commentaire = new Comment();
+            //     $commentaire->setArticle($article)
+            //         ->setAuteur($user)
+            //         ->setContent($faker->paragraph())
+            //         ->setCreatedAt(new \DateTime('now'));
+            //     $manager->persist($commentaire);
 
-        //     $tabTag = ['Comique', 'Horreur', 'Documentaire', 'Science-fiction', 'Ecchi', 'Drame', 'Adulte', 'Jeux-Vidéos'];
-
-      
-
-    
-
-        // }
+            //     $tabTag = ['Comique', 'Horreur', 'Documentaire', 'Science-fiction', 'Ecchi', 'Drame', 'Adulte', 'Jeux-Vidéos'];
 
 
 
-        // $manager->flush();
+
+
+            // }
+
+
+
+            // $manager->flush();
+        }
     }
-}
 }
