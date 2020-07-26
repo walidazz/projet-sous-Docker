@@ -30,86 +30,87 @@ class AppFixtures extends Fixture
         $genre = ['homme', 'femme'];
         $slugify = new Slugify();
         $tabRaison = ['Spam', 'Arnaque', 'Comportement irrespectueux', 'Racisme', 'Incitation à la haine'];
-        $tabCategory = ['Actualité', 'Films', 'Séries', 'Anime'];
-        $tabTag = ['Horreur', 'Adulte', 'Science-Fiction'];
+
 
 
         $date = new \DateTime();
-        // $admin = new User();
-        // $admin->setEmail('walidazzimani@gmail.com')
-        //     ->setPassword($this->encoder->encodePassword($admin, 'sharingan.'))
-        //     ->setCreatedAt(new \DateTime('now'))
-        //     ->setBirthday($date->setDate(1994, 11, 06))
-        //     ->setSexe('homme')
-        //     ->setAvatar("https://picsum.photos/200")
-        //     ->setPseudo('Admin')
-        //     ->setRoles(['ROLE_ADMIN'])
-        //     ->setEnable(true);
-        // $manager->persist($admin);
-
-
-        $user = new User();
-        $user->setEmail($faker->email())
-            ->setPassword($this->encoder->encodePassword($user, 'sharingan.'))
+        $admin = new User();
+        $admin->setEmail('walidazzimani@gmail.com')
+            ->setPassword($this->encoder->encodePassword($admin, 'sharingan.'))
             ->setCreatedAt(new \DateTime('now'))
             ->setBirthday($date->setDate(1994, 11, 06))
-            ->setSexe($genre[mt_rand(0, count($genre) - 1)])
+            ->setSexe('homme')
             ->setAvatar("https://picsum.photos/200")
-            ->setPseudo($faker->userName())
-            ->setRoles(['ROLE_USER'])
+            ->setPseudo('Admin')
+            ->setRoles(['ROLE_ADMIN'])
             ->setEnable(true);
-        $manager->persist($user);
+        $manager->persist($admin);
 
 
-        $tags = new Tag();
-        $tags->setLibelle($tabTag[mt_rand(0, count($tabTag) - 1)]);
-        $manager->persist($tags);
+        $tabCategory = ['Films', 'Séries', 'Animés'];
+        $tabTag = ['Horreur', 'Adulte', 'Science-Fiction'];
 
-        $category = new Category();
-        $category->setLibelle($tabCategory[mt_rand(0, count($tabCategory) - 1)]);
-        $manager->persist($category);
+        for ($f = 0; $f < count($tabCategory); $f++) {
+            $category = new Category();
+            $category->setLibelle($tabCategory[0 + $f]);
+            $manager->persist($category);
+            $categories[] = $category;
+            # code...
+        }
 
 
+        for ($j = 0; $j < count($tabTag); $j++) {
+            $tags = new Tag();
+            $tags->setLibelle($tabTag[0 + $j]);
+            $manager->persist($tags);
+            $tagsTabs[] = $tags;
+        }
 
-        for ($i = 0; $i < 25; $i++) {
+
+        for (
+            $h = 0;
+            $h < 3;
+            $h++
+        ) {
+            $user = new User();
+            $user->setEmail($faker->email())
+                ->setPassword($this->encoder->encodePassword($user, 'sharingan.'))
+                ->setCreatedAt(new \DateTime('now'))
+                ->setBirthday($date->setDate(1994, 11, 06))
+                ->setSexe($genre[mt_rand(0, count($genre) - 1)])
+                ->setAvatar("https://picsum.photos/200")
+                ->setPseudo($faker->userName())
+                ->setRoles(['ROLE_USER'])
+                ->setEnable(true);
+            $manager->persist($user);
+            $users[] = $user;
+
+            # code...
+        }
 
 
+        for ($w = 0; $w < 25; $w++) {
 
 
             $article = new Article();
-            $article->setAuteur($user)
+            $article->setAuteur($users[mt_rand(0, count($users) - 1)])
                 ->setContent($faker->paragraph())
                 ->setCreatedAt(new \DateTime('now'))
                 ->setIntroduction($faker->paragraph())
                 ->setTitle('Article de ' . $article->getAuteur())
                 ->setImage('https://picsum.photos/200')
                 ->setSlug($slugify->slugify($article->getTitle()))
-                ->addTag($tags)
-                ->setCategory($category);
+                ->addTag($tagsTabs[mt_rand(0, count($tagsTabs) - 1)])
+                ->setCategory($categories[mt_rand(0, count($categories) - 1)]);
             $manager->persist($article);
 
-
-
-
-
-            //     $commentaire = new Comment();
-            //     $commentaire->setArticle($article)
-            //         ->setAuteur($user)
-            //         ->setContent($faker->paragraph())
-            //         ->setCreatedAt(new \DateTime('now'));
-            //     $manager->persist($commentaire);
-
-            //     $tabTag = ['Comique', 'Horreur', 'Documentaire', 'Science-fiction', 'Ecchi', 'Drame', 'Adulte', 'Jeux-Vidéos'];
-
-
-
-
-
-            // }
-
-
-
-            // $manager->flush();
+            $commentaire = new Comment();
+            $commentaire->setArticle($article)
+                ->setAuteur($users[mt_rand(0, count($users) - 1)])
+                ->setContent($faker->paragraph())
+                ->setCreatedAt(new \DateTime('now'));
+            $manager->persist($commentaire);
         }
+        $manager->flush();
     }
 }

@@ -54,15 +54,6 @@ class ArticleRepository extends ServiceEntityRepository
       ->getQuery();
   }
 
-  //  public function findThreeLast()
-  //  {
-  //   return $this->createQueryBuilder('a')
-  //    ->orderBy('a.id', 'ASC')
-  //    ->setMaxResults(3)
-  //    ->getQuery()
-  //    ->getResult()
-  //   ;
-  //  }
 
 
   public function findThreeLast($value)
