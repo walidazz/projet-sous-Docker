@@ -130,10 +130,34 @@ class User implements UserInterface, Serializable
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ReportUser::class, mappedBy="reported", orphanRemoval=true)
+     */
+    private $reported;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReportUser::class, mappedBy="auteur", orphanRemoval=true)
+     */
+    private $reportAuteur;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReportArticle::class, mappedBy="auteur", orphanRemoval=true)
+     */
+    private $reportArticles;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReportComment::class, mappedBy="auteur")
+     */
+    private $reportComments;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->reported = new ArrayCollection();
+        $this->reportAuteur = new ArrayCollection();
+        $this->reportArticles = new ArrayCollection();
+        $this->reportComments = new ArrayCollection();
     }
 
 
@@ -530,6 +554,130 @@ class User implements UserInterface, Serializable
     public function setGoogleAccessToken($googleAccessToken)
     {
         $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportUser[]
+     */
+    public function getReported(): Collection
+    {
+        return $this->reported;
+    }
+
+    public function addReported(ReportUser $reported): self
+    {
+        if (!$this->reported->contains($reported)) {
+            $this->reported[] = $reported;
+            $reported->setReported($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReported(ReportUser $reported): self
+    {
+        if ($this->reported->contains($reported)) {
+            $this->reported->removeElement($reported);
+            // set the owning side to null (unless already changed)
+            if ($reported->getReported() === $this) {
+                $reported->setReported(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportUser[]
+     */
+    public function getReportAuteur(): Collection
+    {
+        return $this->reportAuteur;
+    }
+
+    public function addReportAuteur(ReportUser $reportAuteur): self
+    {
+        if (!$this->reportAuteur->contains($reportAuteur)) {
+            $this->reportAuteur[] = $reportAuteur;
+            $reportAuteur->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportAuteur(ReportUser $reportAuteur): self
+    {
+        if ($this->reportAuteur->contains($reportAuteur)) {
+            $this->reportAuteur->removeElement($reportAuteur);
+            // set the owning side to null (unless already changed)
+            if ($reportAuteur->getAuteur() === $this) {
+                $reportAuteur->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportArticle[]
+     */
+    public function getReportArticles(): Collection
+    {
+        return $this->reportArticles;
+    }
+
+    public function addReportArticle(ReportArticle $reportArticle): self
+    {
+        if (!$this->reportArticles->contains($reportArticle)) {
+            $this->reportArticles[] = $reportArticle;
+            $reportArticle->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportArticle(ReportArticle $reportArticle): self
+    {
+        if ($this->reportArticles->contains($reportArticle)) {
+            $this->reportArticles->removeElement($reportArticle);
+            // set the owning side to null (unless already changed)
+            if ($reportArticle->getAuteur() === $this) {
+                $reportArticle->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportComment[]
+     */
+    public function getReportComments(): Collection
+    {
+        return $this->reportComments;
+    }
+
+    public function addReportComment(ReportComment $reportComment): self
+    {
+        if (!$this->reportComments->contains($reportComment)) {
+            $this->reportComments[] = $reportComment;
+            $reportComment->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportComment(ReportComment $reportComment): self
+    {
+        if ($this->reportComments->contains($reportComment)) {
+            $this->reportComments->removeElement($reportComment);
+            // set the owning side to null (unless already changed)
+            if ($reportComment->getAuteur() === $this) {
+                $reportComment->setAuteur(null);
+            }
+        }
 
         return $this;
     }

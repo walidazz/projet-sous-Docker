@@ -17,6 +17,7 @@ easy_admin:
             - birthday
             - enable
             - comments
+            - reported
       form:
         fields:
             - pseudo
@@ -47,6 +48,7 @@ easy_admin:
             - tags
             - comments
             - createdAt
+            - reportArticles
     Comment:
       class: App\Entity\Comment
       list:
@@ -57,6 +59,7 @@ easy_admin:
             - article
             - { property: 'content', type: 'text_editor' }
             - createdAt
+            - reportComments
       form:
         fields:
             - auteur
@@ -74,3 +77,13 @@ easy_admin:
       form:
         fields:
             - libelle
+
+    ReportUser:
+      class: App\Entity\ReportUser
+
+    ReportArticle:
+      class: App\Entity\ReportArticle
+
+    ReportComment:
+      class: App\Entity\ReportComment 
+

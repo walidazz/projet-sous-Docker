@@ -97,10 +97,16 @@ class Article
      */
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ReportArticle::class, mappedBy="reportedArticle", orphanRemoval=true)
+     */
+    private $reportArticles;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->reportArticles = new ArrayCollection();
     }
 
 
@@ -336,5 +342,36 @@ class Article
     public function double($nombre): int
     {
         return $nombre * 2;
+    }
+
+    /**
+     * @return Collection|ReportArticle[]
+     */
+    public function getReportArticles(): Collection
+    {
+        return $this->reportArticles;
+    }
+
+    public function addReportArticle(ReportArticle $reportArticle): self
+    {
+        if (!$this->reportArticles->contains($reportArticle)) {
+            $this->reportArticles[] = $reportArticle;
+            $reportArticle->setReportedArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportArticle(ReportArticle $reportArticle): self
+    {
+        if ($this->reportArticles->contains($reportArticle)) {
+            $this->reportArticles->removeElement($reportArticle);
+            // set the owning side to null (unless already changed)
+            if ($reportArticle->getReportedArticle() === $this) {
+                $reportArticle->setReportedArticle(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -40,6 +42,16 @@ class Comment
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReportComment::class, mappedBy="reportedComment", orphanRemoval=true)
+     */
+    private $reportComments;
+
+    public function __construct()
+    {
+        $this->reportComments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,5 +124,36 @@ class Comment
         if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime('now');
         }
+    }
+
+    /**
+     * @return Collection|ReportComment[]
+     */
+    public function getReportComments(): Collection
+    {
+        return $this->reportComments;
+    }
+
+    public function addReportComment(ReportComment $reportComment): self
+    {
+        if (!$this->reportComments->contains($reportComment)) {
+            $this->reportComments[] = $reportComment;
+            $reportComment->setReportedComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportComment(ReportComment $reportComment): self
+    {
+        if ($this->reportComments->contains($reportComment)) {
+            $this->reportComments->removeElement($reportComment);
+            // set the owning side to null (unless already changed)
+            if ($reportComment->getReportedComment() === $this) {
+                $reportComment->setReportedComment(null);
+            }
+        }
+
+        return $this;
     }
 }
