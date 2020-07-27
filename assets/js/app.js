@@ -28,7 +28,22 @@ $(document).ready(function () {
   });
 });
 // essaie ajax
-
+$(document).ready(function () {
+  //On écoute le "click" sur le bouton ayant la classe "modal-trigger"
+  $('.modal-trigger').click(function () {
+    //On initialise les modales materialize
+    $('.modal').modal();
+    //On récupère l'url depuis la propriété "Data-target" de la balise html a
+    url = $(this).attr('data-target');
+    //on fait un appel ajax vers l'action symfony qui nous renvoie la vue
+    $.get(url, function (data) {
+      //on injecte le html dans la modale
+      $('.modal-content').html(data);
+      //on ouvre la modale
+      $('#modal1').modal('open');
+    });
+  })
+});
 
 // let villeChoisie;
 
@@ -45,10 +60,10 @@ $(document).ready(function () {
 //     requete.send(); // Nous envoyons notre requête
 
 //     // Dès qu'on reçoit une réponse, cette fonction est executée
-    // requete.onload = function () {
-    //   if (requete.readyState === XMLHttpRequest.DONE) {
-    //     if (requete.status === 200) {
-    //       let reponse = requete.response;
+// requete.onload = function () {
+//   if (requete.readyState === XMLHttpRequest.DONE) {
+//     if (requete.status === 200) {
+//       let reponse = requete.response;
 //           // console.log(reponse);
 //           let temperature = reponse.main.temp;
 //           let ville = reponse.name;
