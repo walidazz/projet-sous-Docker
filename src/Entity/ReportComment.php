@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\PreUpdate;
-use Doctrine\ORM\Mapping\PrePersist;
 use App\Repository\ReportCommentRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
 
 /**
  * @ORM\Entity(repositoryClass=ReportCommentRepository::class)
@@ -112,24 +112,23 @@ class ReportComment
   return $this;
  }
 
+ /**
+  * Permet d'initialiser la date de création !
+  *
+  * @ORM\PrePersist
+  * @ORM\PreUpdate
+  *
+  * @return void
+  */
+ public function initializeDate()
+ {
+  if (empty($this->createdAt)) {
+   $this->createdAt = new \DateTime('now');
+  }
+ }
 
-     /**
-     * Permet d'initialiser la date de création !
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     * 
-     * @return void
-     */
-    public function initializeDate()
-    {
-        if (empty($this->createdAt)) {
-            $this->createdAt = new \DateTime('now');
-        } 
-    }
-
-    public function __toString()
-    {
-        return $this->motif;
-    }
+ public function __toString()
+ {
+  return $this->motif;
+ }
 }
