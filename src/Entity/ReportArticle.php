@@ -132,4 +132,5 @@ class ReportArticle
  {
   return $this->motif;
  }
+
 }
