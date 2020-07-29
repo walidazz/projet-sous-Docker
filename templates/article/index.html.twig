@@ -47,58 +47,21 @@
 
 
 
+{% if app.user %}
 
 
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReport"
     data-whatever="@mdo">Signaler
 </button>
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Signaler</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{{path('report_article' , {'id' : article.id})}}">
-                    <div class="form-group">
-                        <label for="_motif">Motif du signalement</label>
-                        <select class="form-control" name="_motif" id="_motif">
-                            <option>Propos haineux, Discrimination, Négationnisme </option>
-                            <option>Message Inoportun</option>
-                            <option>Publicité</option>
-                            <option>Apologie de comportements illégaux</option>
-                            <option>Insulte,diffamation</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" name="_message" id="_message"></textarea>
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Envoyer le signalement">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-            </div>
-        </div>
-    </div>
-</div>
+{% include "shared/_modalReport.html.twig" with { "entity" : "article" , "url" : "report_article" } %}
 
 
 
 <hr>
 
 
-{% if app.user %}
+
 
 <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
 

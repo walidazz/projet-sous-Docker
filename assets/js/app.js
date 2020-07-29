@@ -40,7 +40,7 @@ $(document).ready(function () {
       //on injecte le html dans la modale
       $('.modal-content').html(data);
       //on ouvre la modale
-      $('#modal1').modal('open');
+      $('#modalReport').modal('open');
     });
   })
 });

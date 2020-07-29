@@ -59,7 +59,7 @@ class ReportController extends AbstractController
  }
 
  /**
-  * @Route("/report/user/{id}/", name="report_user, methods={"POST","GET"})
+  * @Route("/report/user/{id}/", name="report_user", methods={"POST","GET"})
   */
  public function reportUser(User $user, Request $request, EntityManagerInterface $em, ReportUserRepository $repo)
  {
@@ -83,13 +83,13 @@ class ReportController extends AbstractController
    $this->addFlash('warning', 'Vous avez déja signalé cet utilisateur ! ');
 
   }
-  $referer = $request->headers->get('referer');
+ // $referer = $request->headers->get('referer');
 
-  return $this->redirectToRoute($referer);
+  return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
  }
 
  /**
-  * @Route("/report/comment/{id}/", name="report_comment, methods={"POST","GET"})
+  * @Route("/report/comment/{id}/", name="report_comment", methods={"POST","GET"})
   */
  public function reportComment(Comment $comment, Request $request, EntityManagerInterface $em, ReportCommentRepository $repo)
  {
@@ -113,9 +113,12 @@ class ReportController extends AbstractController
    $this->addFlash('warning', 'Vous avez déja signalé ce commentaire ! ');
 
   }
-  $referer = $request->headers->get('referer');
+  //$referer = $request->headers->get('referer');
 
-  return $this->redirectToRoute($referer);
+  $articleSlug = $comment->getArticle()->getSlug();
+
+  return $this->redirectToRoute('article_show', ['slug' => $articleSlug]);
+
  }
 
 }
