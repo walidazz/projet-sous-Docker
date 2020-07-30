@@ -6,20 +6,17 @@ liip_imagine:
         carre:
             quality: 75
             filters:
-
                 # use and setup the "fixed" filter
-               thumbnail: { size: [300, 300], mode: outbound }
+                thumbnail: { size: [300, 300], mode: outbound }
 
         detail:
             quality: 75
             filters:
-
                 # use and setup the "fixed" filter
-               thumbnail: { size: [600, 500], mode: outbound }
+                thumbnail: { size: [600, 500], mode: outbound }
 
         avatar:
             quality: 75
             filters:
-
                 # use and setup the "fixed" filter
-               thumbnail: { size: [150, 150], mode: outbound }
+                thumbnail: { size: [75, 75], mode: outbound }

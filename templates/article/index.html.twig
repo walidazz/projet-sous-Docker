@@ -1,92 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Show{% endblock %}
+{% block title %}{{article.title}}{% endblock %}
 
 {% block body %}
 
-<section>
+<!-- Page Content -->
+<div class="container">
+
     <div class="row">
-        <div class="col-lg-12">
-            <div class="jumbotron p-5 rounded-0 text-center text-white"
-                style="background-image: url('https://believemy.com/uploads/f536b82491a5a3c07e60cf2b977ded35_03b49c2a70d5bf98d966a517f96cfb87.jpeg')">
-                <h4 class="display-4">Inscriptions ouvertes</h4>
-                <p class="lead"> Année 2180-2181</p>
-                <hr class="my-4">
-                <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Documents
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Dossier d'inscription</a>
-                        <a class="dropdown-item" href="#">Règlement intérieur</a>
-                        <a class="dropdown-item" href="#">Documents concernant l'internat</a>
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+            <!-- Title -->
+            <h1 class="mt-4">{{article.title}}</h1>
+
+            <!-- Author -->
+            <p class="lead">
+                by
+                <a href="#">La rédaction</a>
+            </p>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <p>publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}</p>
+            <p>
+                {% for tag in article.tags  %}
+
+                <span class="badge badge-secondary"> {{tag.libelle}}</span>
+                {% endfor %}
+
+            </p>
+
+            <hr>
+
+            <!-- Preview Image -->
+            <img class="img-fluid rounded"
+                src="{{asset('images/articles/' ~ article.image) | imagine_filter('carre') }}" alt="{{article.title}}">
+
+            <div class="float-right">
+                <a class="btn btn-primary" data-toggle="modal" data-target="#modalReport" data-whatever="@mdo">signaler
+                </a>
+
+                {% include "shared/_modalReport.html.twig" with { "entity" : "article" , "url" : "report_article" } %}
+            </div>
+            <hr>
+
+            <!-- Post Content -->
+            <p class="lead"> {{article.introduction}} </p>
+
+            <p> {{article.content}} </p>
+            <hr>
+
+            {% if app.user %}
+            <div class="card my-4">
+                <h5 class="card-header">Laisser un commentaire:</h5>
+                <div class="card-body">
+                    <form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
+                        <div class="form-group">
+                            <textarea name="content" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+
+            {% endif %}
+
+            <!-- Comments Form -->
+
+
+            <!-- Single Comment -->
+
+            {% for comment in article.comments %}
+
+            <section>
+                <div class="float-right">
+                    <form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
+                        onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
+
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                        <input type="submit" value="Supprimer">
+                    </form>
+                </div>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle"
+                        src="{{asset('images/users/' ~ comment.auteur.avatar) | imagine_filter('avatar') }}"
+                        alt="image de profil de {{comment.auteur.pseudo}} ">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{comment.auteur}}</h5>
+                        {{ comment.content|raw }}
                     </div>
                 </div>
 
+                {%  if comment.auteur is same as(app.user) %}
+
+                {% endif %}
+
+            </section>
+            {% endfor %}
 
 
-            </div>
         </div>
     </div>
-</section>
 
-
-
-
-<div class="col-md-8 mx-auto p-3 ">
-    <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) | imagine_filter('detail') }}"
-        alt="Card image cap">
-    <div class="card-body">
-        <p class="card-text"> Title : {{article.title}}</p>
-        <p class="card-text"> Introduction {{article.introduction}}</p>
-        <p class="card-text"> Content: {{article.content|raw}}</p>
-    </div>
 </div>
 
+<!-- Sidebar Widgets Column -->
 
-
-
-{% if app.user %}
-
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReport"
-    data-whatever="@mdo">Signaler
-</button>
-
-{% include "shared/_modalReport.html.twig" with { "entity" : "article" , "url" : "report_article" } %}
-
-
-
-<hr>
-
-
-
-
-<form method="POST" action="{{path('comment_new' , {'id' : article.id})}}">
-
-    <textarea name="content" id="" cols="100" rows="5"></textarea>
-    <input type="submit" value="Poster">
-</form>
-{% endif %}
-
-
-{% for comment in article.comments %}
-<div class="row col-md-8 mx-auto border border-black p-2 m-3">
-
-    <div class="m-3">
-        auteur: {{comment.auteur}} <br>
-        content: {{ comment.content|raw }} <br>
-    </div>
-</div>
-
-<form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
-    onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
-
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-    <input type="submit" value="Supprimer">
-</form>
-{% endfor %}
-
+<!-- /.container -->
 {% endblock %}
