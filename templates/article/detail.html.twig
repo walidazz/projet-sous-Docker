@@ -76,6 +76,7 @@
             {% for comment in article.comments %}
 
             <section>
+                {%  if comment.auteur is same as(app.user) %}
                 <div class="float-right">
                     <form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
                         onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
@@ -85,6 +86,7 @@
                         <input type="submit" value="Supprimer">
                     </form>
                 </div>
+                {% endif %}
                 <div class="media mb-4">
                     <img class="d-flex mr-3 rounded-circle"
                         src="{{asset('images/users/' ~ comment.auteur.avatar) | imagine_filter('avatar') }}"
@@ -95,9 +97,9 @@
                     </div>
                 </div>
 
-                {%  if comment.auteur is same as(app.user) %}
 
-                {% endif %}
+
+
 
             </section>
             {% endfor %}

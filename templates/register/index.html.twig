@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="col-4 mx-auto mt-5 border border-black rounded p-2 bg-light">
+<div class="col-md-8 col-lg-4 mx-auto mt-5 border border-black rounded p-2 bg-light">
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="text-center">
@@ -13,7 +13,8 @@
     {{ form_end(form) }}
 
     <hr>
-    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-danger btn-sm"> Continuer avec Google</a>
+    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-danger btn-sm"> Continuer
+        avec Google</a>
 
 </div>
 

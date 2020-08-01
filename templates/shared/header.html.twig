@@ -4,10 +4,12 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="mx-auto">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div class="mx-auto">
+            <ul class="navbar-nav ">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{path('homepage')}}">Accueil</a>
                 </li>
@@ -36,6 +38,11 @@
 
             </ul>
 
+
+        </div>
+        {% if is_granted('ROLE_USER') %}
+
+        <ul class="navbar-nav float-right">
             <form class="form-inline my-2 my-lg-0 mx-5" action="{{path('search')}}" method="POST">
                 <input class="form-control mr-sm-2" name="_contenu" type="search" placeholder="Search"
                     aria-label="Search" />
@@ -43,52 +50,30 @@
                     Rechercher
                 </button>
             </form>
-        </div>
-    </div>
-    <div class="float-right mx-auto">
-        {% if is_granted('ROLE_USER') %}
-
-
-        {% if app.user.avatar is not null %}
-
-        {% if app.user.googleID is not null %}
-        <img src="{{app.user.avatar}}" style="width:3em" class=" rounded-circle">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{asset('images/users/' ~ app.user.avatar) | imagine_filter('avatar') }}" width="40"
+                        height="40" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{path('profile_edit', {'id' : app.user.id})}}">Editer son
+                        profil</a>
+                    <a class="dropdown-item" href="{{path('app_logout')}}">Deconnexion</a>
+                </div>
+            </li>
+        </ul>
 
         {% else %}
-        <img src="{{asset('images/users/' ~ app.user.avatar)}}" style="width:3em" class="  rounded-circle">
+        <a class="btn btn-outline-danger mr-2" href="{{path('app_login')}}">Connexion</a>
 
+        <a class="btn btn-outline-warning mr-2" href="{{path('register')}}">Inscription</a>
         {% endif %}
-
-
-        {% endif %}
-        <div class="btn-group dropdown">
-
-            <button type="button" class="text-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                {{app.user.pseudo}}
-            </button>
-            <div class="dropdown-menu">
-
-                <a class="dropdown-item" href="{{path('profile_edit', {'id' : app.user.id})}}">Editer son profil</a>
-                <a class="dropdown-item" href="#">Another action</a>
-
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{path('app_logout')}}">Deconnexion</a>
-
-
-
-            </div>
-        </div>
-        {% else %}
-
-        <a class="btn btn-outline-danger" href="{{path('app_login')}}">Connexion</a>
-
-        <a class="btn btn-outline-warning" href="{{path('register')}}">Inscription</a>
-
-        {% endif %}
-
 
     </div>
+
+
+
 
 
 </nav>

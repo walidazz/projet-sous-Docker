@@ -61,23 +61,12 @@
                     </div>
                 </article>
                 <div class="contact-form article-comment">
-                    <h4>Leave a Reply</h4>
+                    <h4>Laisser un commentaire</h4>
                     <form id="contact-form" method="POST">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input name="Name" id="name" placeholder="Name *" class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input name="Email" id="email" placeholder="Email *" class="form-control"
-                                        type="email">
-                                </div>
-                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="message" id="message" placeholder="Your message *" rows="4"
+                                    <textarea name="message" id="message" placeholder="Ecrire un commentaire" rows="4"
                                         class="form-control"></textarea>
                                 </div>
                             </div>
@@ -88,7 +77,39 @@
                             </div>
                         </div>
                     </form>
+                    {% for comment in article.comments %}
+                    <hr>
+                    <section>
+                        {%  if comment.auteur is same as(app.user) %}
+                        <div class="float-right">
+                            <form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
+                                onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
+
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                <input type="submit" value="delete">
+                            </form>
+                        </div>
+                        {% endif %}
+                        <div class="media mb-4">
+                            <img class="d-flex mr-3 rounded-circle"
+                                src="{{asset('images/users/' ~ comment.auteur.avatar) | imagine_filter('avatar') }}"
+                                alt="image de profil de {{comment.auteur.pseudo}} ">
+                            <div class="media-body">
+                                <h5 class="mt-0">{{comment.auteur}}</h5>
+                                {{ comment.content|raw }}
+                            </div>
+                        </div>
+
+
+
+
+
+                    </section>
+                    {% endfor %}
                 </div>
+
+
             </div>
             <div class="col-lg-4 m-15px-tb blog-aside">
                 <!-- Author -->
