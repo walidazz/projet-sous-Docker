@@ -6,7 +6,7 @@
 // formulaire modale pour signalement
 // faire l'ajout des signalements
 
-
+-> faire un footer
 
 -> faire la page de profil de l'user
 

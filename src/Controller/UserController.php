@@ -54,7 +54,7 @@ class UserController extends AbstractController
    $em->persist($user);
    $em->flush();
    $this->addFlash('success', 'Modification effectué avec succès !');
-   return $this->redirectToRoute('homepage');
+   return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
    # code...
   }
 
