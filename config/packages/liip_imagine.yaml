@@ -13,7 +13,7 @@ liip_imagine:
             quality: 75
             filters:
                 # use and setup the "fixed" filter
-                thumbnail: { size: [600, 500], mode: outbound }
+                thumbnail: { size: [800, 350], mode: outbound }
 
         avatar:
             quality: 75
@@ -25,4 +25,4 @@ liip_imagine:
             quality: 75
             filters:
                 # use and setup the "fixed" filter
-                thumbnail: { size: [350, 180], mode: outbound }
+                thumbnail: { size: [350, 350], mode: outbound }

@@ -127,6 +127,7 @@ $(document).ready(function () {
 
 //page accueil card 
 //FEATURED HOVER
+//FEATURED HOVER
 $(document).ready(function () {
   $(".linkfeat").hover(
     function () {
