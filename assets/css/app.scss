@@ -562,4 +562,21 @@ a:hover,
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0);
 }
 
+.carousel .carousel-inner {
+  max-height: 400px
+}
+
+.carousel-inner .carousel-item img {
+  max-height: 400px;
+  //prevent it from stretch in screen size < than 768px
+  object-fit: cover
+}
+
+@media(max-width:768px) {
+  .carousel .carousel-inner {
+    //prevent it from adding a white space between carousel and container elements
+    height: auto;
+  }
+}
+
 //fin page accueil news

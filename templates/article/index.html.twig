@@ -87,7 +87,8 @@
 
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-                                <input type="submit" value="delete">
+                                <button class="btn btn-danger btn-sm" type="submit">x</button>
+
                             </form>
                         </div>
                         {% endif %}

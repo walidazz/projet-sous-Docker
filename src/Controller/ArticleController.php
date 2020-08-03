@@ -19,12 +19,12 @@ class ArticleController extends AbstractController
  public function index(ArticleRepository $repo)
  {
 
-//   $articles = $repo->findBy([], ['createdAt' => 'DESC'], 3);
-  $series = $repo->findThreeLast('Séries');
-  $films  = $repo->findThreeLast('Films');
-  $animes = $repo->findThreeLast('Animés');
+  $globales = $repo->findBy([], ['createdAt' => 'DESC'], 3);
+  $series   = $repo->findThreeLast('Séries');
+  $films    = $repo->findThreeLast('Films');
+  $animes   = $repo->findThreeLast('Animés');
 
-  return $this->render('article/homepage.html.twig', compact('series', 'films', 'animes'));
+  return $this->render('article/homepage.html.twig', compact('series', 'films', 'animes', 'globales'));
  }
 
 /**

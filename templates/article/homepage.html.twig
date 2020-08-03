@@ -4,208 +4,33 @@
 
 {% block body %}
 
-
 <div class="container">
-    <div class="row my-5">
-        <div class="col-sm-12 col-md-12 col-lg-6  py-0 pl-3 pr-1 featcard">
-            <div id="featured" class="carousel slide carousel-fade" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Bootdey</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Bootdey</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Bootdey</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Industri</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Bootdey</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card bg-dark text-white">
-                            <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                            <div class="card-img-overlay d-flex linkfeat">
-                                <a href="#" class="align-self-end">
-                                    <span class="badge">Bootdey</span>
-                                    <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                                    <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                                        consectetuer
-                                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
+
+    <div id="carouselExampleCaptions" class="carousel slide my-3" data-ride="carousel">
+
+        <div class="carousel-inner">
+            {% for global in globales  %}
+
+            <div class="carousel-item {% if loop.first %} active {% endif %}">
+                <img class="d-block w-100" src="{{asset('images/articles/' ~ global.image) | imagine_filter('card') }}"
+                    alt="slide">
+                <div class="carousel-caption text-left d-md-block">
+                    <a href="{{path('article_show', {'slug' : global.slug })}}" class="align-self-end">
+                        <span class="badge">{{global.category.libelle}}</span>
+                        <h4 class="card-title">{{global.title}}</h4>
+                        <p class="d-sm-none d-md-block">
+                            {{global.introduction}}</p>
+
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="col-6 py-0 px-1 d-none d-lg-block">
-            <div class="row">
-                <div class="col-6 pb-2 mg-1	">
-                    <div class="card bg-dark text-white">
-                        <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                        <div class="card-img-overlay d-flex">
-                            <a href="#" class="align-self-end">
-                                <span class="badge">Finansial</span>
-                                <h6 class="card-title">BI Atur Standarisasi QR Code</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 pb-2 mg-2	">
-                    <div class="card bg-dark text-white">
-                        <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                        <div class="card-img-overlay d-flex">
-                            <a href="#" class="align-self-end">
-                                <span class="badge">Industri</span>
-                                <h6 class="card-title">PTSP BP Batam Masuk 10 Terbaik di Indonesia</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 pb-2 mg-3	">
-                    <div class="card bg-dark text-white">
-                        <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                        <div class="card-img-overlay d-flex">
-                            <a href="#" class="align-self-end">
-                                <span class="badge">Ekspor</span>
-                                <h6 class="card-title">Review GSP: Amerika Ingin Perdagangan Saling Menguntungkan
-                                </h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 pb-2 mg-4	">
-                    <div class="card bg-dark text-white">
-                        <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                        <div class="card-img-overlay d-flex">
-                            <a href="#" class="align-self-end">
-                                <span class="badge">Pertumbuhan Ekonomi</span>
-                                <h6 class="card-title">DPR Setujui Penambahan Anggaran BP Batam Rp565 Miliar</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            {% endfor %}
         </div>
     </div>
 
 
-
-
-
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <div class="row">
-        <div class="col-sm-12 col-md-10 col-lg-4">
-            <div class="card bg-dark text-white">
-                <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                <div class="card-img-overlay d-flex linkfeat">
-                    <a href="#" class="align-self-end">
-                        <span class="badge">Bootdey</span>
-                        <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                        <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                            consectetuer
-                            adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-10 col-lg-4">
-            <div class="card bg-dark text-white">
-                <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                <div class="card-img-overlay d-flex linkfeat">
-                    <a href="#" class="align-self-end">
-                        <span class="badge">Bootdey</span>
-                        <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                        <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                            consectetuer
-                            adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-10 col-lg-4">
-            <div class="card bg-dark text-white">
-                <img class="card-img img-fluid" src="https://via.placeholder.com/350" alt="">
-                <div class="card-img-overlay d-flex linkfeat">
-                    <a href="#" class="align-self-end">
-                        <span class="badge">Bootdey</span>
-                        <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-                        <p class="textfeat" style="display: none;">Lorem ipsum dolor sit amet,
-                            consectetuer
-                            adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-    <div class="container"></div>
     <section>
         <div class="text-center m-2">
             <h2> Les séries </h2>
@@ -272,6 +97,6 @@
 
 
 
-
+</div>
 
 {% endblock %}

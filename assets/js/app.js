@@ -125,17 +125,6 @@ $(document).ready(function () {
 //   }
 // }
 
-//page accueil card 
-//FEATURED HOVER
-//FEATURED HOVER
-$(document).ready(function () {
-  $(".linkfeat").hover(
-    function () {
-      $(".textfeat").show(500);
-    },
-    function () {
-      $(".textfeat").hide(500);
-    }
-  );
-});
-//fin page accueil card
+$('.carousel').carousel({
+  interval: 5000
+})

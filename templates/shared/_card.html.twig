@@ -3,11 +3,11 @@
         <img class="card-img img-fluid" src="{{asset('images/articles/' ~ article.image) | imagine_filter('card') }}"
             alt="">
         <div class="card-img-overlay d-flex linkfeat">
-            <a href="#" class="align-self-end">
+            <a href="{{path('article_show', {'slug' : article.slug })}}" class="align-self-end">
                 <span class="badge">{{article.category.libelle}}</span>
                 <h4 class="card-title">{{article.title}}</h4>
-                <p class="textfeat" style="display: none;">publié le
-                    {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}</p>
+                <p class="float-right"> <small> publié le
+                        {{article.introduction | u.truncate('60','...')}} </small> </p>
             </a>
         </div>
     </div>
