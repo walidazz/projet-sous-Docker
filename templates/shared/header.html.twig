@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark m-0 sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <a class="navbar-brand" href="#">ActuSéries</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,9 +10,6 @@
 
         <div class="mx-auto">
             <ul class="navbar-nav ">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{path('homepage')}}">Accueil</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Actualités</a>
                 </li>
@@ -42,15 +39,15 @@
         </div>
         {% if is_granted('ROLE_USER') %}
 
-        <ul class="navbar-nav float-right">
-            <form class="form-inline my-2 my-lg-0 mx-5" action="{{path('search')}}" method="POST">
+        <ul class="navbar-nav mx-auto">
+            <form class="form-inline my-1 my-lg-0 mx-3" action="{{path('search')}}" method="POST">
                 <input class="form-control mr-sm-2" name="_contenu" type="search" placeholder="Search"
                     aria-label="Search" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <button class="btn btn-outline-success  my-sm-0" type="submit">
                     Rechercher
                 </button>
             </form>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{asset('images/users/' ~ app.user.avatar) | imagine_filter('avatar') }}" width="40"

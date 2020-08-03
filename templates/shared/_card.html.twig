@@ -1,14 +1,19 @@
-<div class="col-xs-12  col-md-10 col-lg-4 col-sm-12 col-md-10 col-lg-4">
-    <div class="card bg-dark text-white">
+<div class="col-xs-12  col-md-12 col-lg-4 col-sm-12 col-lg-4 p-1 ">
+    <div class="card bg-dark text-white shadow-lg">
         <img class="card-img img-fluid" src="{{asset('images/articles/' ~ article.image) | imagine_filter('card') }}"
             alt="">
         <div class="card-img-overlay d-flex linkfeat">
             <a href="{{path('article_show', {'slug' : article.slug })}}" class="align-self-end">
                 <span class="badge">{{article.category.libelle}}</span>
                 <h4 class="card-title">{{article.title}}</h4>
-                <p class="float-right"> <small> publié le
-                        {{article.introduction | u.truncate('60','...')}} </small> </p>
+                <p class="float-right"> <small>
+                        {{article.introduction | u.truncate('90','...')}} </small>
+                </p>
+
             </a>
+
         </div>
+
     </div>
+
 </div>

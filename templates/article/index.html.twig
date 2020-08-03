@@ -80,7 +80,7 @@
                     {% for comment in article.comments %}
                     <hr>
                     <section>
-                        {%  if comment.auteur is same as(app.user) %}
+                        {%  if comment.auteur is same as(app.user) or is_granted('ROLE_ADMIN') %}
                         <div class="float-right">
                             <form method="POST" action="{{path('comment_delete', {'id' : comment.id })}}"
                                 onsubmit="return confirm('Voulez vous vraiment supprimer ce commentaire ?');">
