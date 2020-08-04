@@ -36,8 +36,8 @@
             <hr>
 
             <!-- Preview Image -->
-            <img class="img-fluid rounded"
-                src="{{asset('images/articles/' ~ article.image) | imagine_filter('carre') }}" alt="{{article.title}}">
+            <img class="img-fluid rounded" src="{{asset('images/user/' ~ article.image) | imagine_filter('carre') }}"
+                alt="{{article.title}}">
 
             <div class="float-right">
                 <a class="btn btn-primary" data-toggle="modal" data-target="#modalReport" data-whatever="@mdo">signaler

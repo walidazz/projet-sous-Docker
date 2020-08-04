@@ -3,11 +3,11 @@ liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
     filter_sets:
-        carre:
+        miniature:
             quality: 75
             filters:
                 # use and setup the "fixed" filter
-                thumbnail: { size: [300, 300], mode: outbound }
+                thumbnail: { size: [75, 75], mode: outbound }
 
         detail:
             quality: 75

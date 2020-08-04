@@ -1,66 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des articles{% endblock %}
+{% block title %}Affichage par categorie{% endblock %}
 
 {% block body %}
 
+<div class="container mx-auto bg-light">
 
-{% if articles %}
 
 
-<div class="container">
-    <div class="row">
-        <div class="col">
 
-        </div>
-        <div class="col-6">
-            <h1>hello</h1>
+
+    <div class="text-center ">
+
+    </div>
+    <div class="row my-3 ">
+        <div class="card-deck mx-auto my-5 ">
+
             {% for article in articles %}
 
-            <div class="card m-2" style="width: 18rem;">
-                <img class="card-img-top" src="{{asset('images/articles/' ~ article.image) | imagine_filter('carre')}}"
-                    alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text"> Title : {{article.title}}</p>
-                    <p class="card-text"> Introduction {{article.introduction}}</p>
-                    <p class="card-text"> Content: {{article.content|raw}}</p>
-                    <a class="btn btn-secondary btn-md" href="{{path('article_show' , {'slug' : article.slug})}}">Voir
-                        détail</a>
-                </div>
-            </div>
+            {% include "shared/_card.html.twig" with {'article' : article} %}
+
             {% endfor %}
-            <div class="pagination">
-                <div class="mx-auto">
 
 
-                    {{ knp_pagination_render(articles) }}
-                </div>
-            </div>
         </div>
 
-
-
-
-        {% else %}
-
-        <p>Aucun articles trouvés !</p>
-
-        {% endif %}
-
-
-
-
     </div>
-    <div class="col">
 
-    </div>
+
+
+
+
 </div>
 
-{% endblock %}
-
-{% block javascripts %}
 
 
+<div class="pagination">
+    <div class="mx-auto">
+
+
+        {{ knp_pagination_render(articles) }}
+    </div>
+</div>
 
 
 

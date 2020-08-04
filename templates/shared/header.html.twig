@@ -11,19 +11,19 @@
         <div class="mx-auto">
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Actualités</a>
+                    <a class="nav-link" href="{{path('article_list', {'libelle' : 'Actualités' })}}">Actualités</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Films</a>
+                    <a class="nav-link" href="{{path('article_list', {'libelle' : 'Films' })}}">Films</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Séries</a>
+                    <a class="nav-link" href="{{path('article_list', {'libelle' : 'Séries' })}}">Séries</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Animés</a>
+                    <a class="nav-link" href="{{path('article_list', {'libelle' : 'Animés' })}}">Animés</a>
                 </li>
 
                 {% if is_granted('ROLE_ADMIN') %}
@@ -54,6 +54,7 @@
                         height="40" class="rounded-circle">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{path('user_profile', {'id' : app.user.id})}}">Voir profil</a>
                     <a class="dropdown-item" href="{{path('profile_edit', {'id' : app.user.id})}}">Editer son
                         profil</a>
                     <a class="dropdown-item" href="{{path('app_logout')}}">Deconnexion</a>

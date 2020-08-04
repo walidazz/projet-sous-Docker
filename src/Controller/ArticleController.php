@@ -7,7 +7,6 @@ use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -28,12 +27,12 @@ class ArticleController extends AbstractController
  }
 
 /**
- * @Route("/article/list", name="article_list")
+ * @Route("/article/{libelle}", name="article_list")
  */
- public function articlelList(PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
+ public function articlelList($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
  {
 
-  $query    = $repo->findAllQuery();
+  $query    = $repo->findAllByCategory($libelle);
   $articles = $paginator->paginate(
    $query,
    $request->query->getInt('page', 1),
@@ -47,9 +46,10 @@ class ArticleController extends AbstractController
   */
  public function show(Article $article, ArticleRepository $repo)
  {
-  $sameCategoy = $repo->findThreeLast($article->getCategory()->getLibelle());
+  $sameCategory = $repo->findThreeLast($article->getCategory()->getLibelle());
+  $news         = $repo->findBy([], ['createdAt' => 'DESC'], 3);
 
-  return $this->render('article/index.html.twig', ['article' => $article]);
+  return $this->render('article/index.html.twig', compact('article', 'sameCategory', 'news'));
  }
 
 //  /**
@@ -85,19 +85,19 @@ class ArticleController extends AbstractController
  /**
   * @Route("/panier/add/{id}", name="panier_add" )
   */
- public function addFavorite($id, SessionInterface $session)
- {
+//  public function addFavorite($id, SessionInterface $session)
+ //  {
 
-  $panier = $session->get('panier', []);
-  if (!empty($panier[$id])) {
-   $panier[$id]++;
-  } else {
-   $panier[$id] = 1;
-  }
+//   $panier = $session->get('panier', []);
+ //   if (!empty($panier[$id])) {
+ //    $panier[$id]++;
+ //   } else {
+ //    $panier[$id] = 1;
+ //   }
 
-  $panier = $session->set('panier', $panier);
+//   $panier = $session->set('panier', $panier);
 
-  return $this->redirectToRoute('panier_index');
- }
+//   return $this->redirectToRoute('panier_index');
+ //  }
 
 }

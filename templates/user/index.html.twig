@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="container bootstrap snippet mt-5">
+<div class="container bootstrap snippet my-5 p-5">
     <div class="panel-body inf-content">
         <div class="row">
             <div class="col-md-4">
@@ -19,7 +19,7 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <strong>Information</strong><br>
+                
                 <div class="table-responsive">
                     <table class="table table-user-information">
                         <tbody>
@@ -65,7 +65,7 @@
                                     </strong>
                                 </td>
                                 <td class="text-primary">
-                                    bootnipets
+                                {{user.pseudo}}
                                 </td>
                             </tr>
 
@@ -78,7 +78,11 @@
                                     </strong>
                                 </td>
                                 <td class="text-primary">
-                                    Admin
+                                {% if is_granted('ROLE_ADMIN') %}
+                           Administrateur
+                       {% else %}
+                           Membre
+                       {% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -89,7 +93,7 @@
                                     </strong>
                                 </td>
                                 <td class="text-primary">
-                                    noreply@email.com
+                                    {{user.email}}
                                 </td>
                             </tr>
                             <tr>

@@ -26,7 +26,7 @@ class UserController extends AbstractController
  }
 
  /**
-  * @Route("/user/profile/{id}", name="user_profile")
+  * @Route("/profile/{id}", name="user_profile")
   */
  public function showProfile(User $user, UserRepository $repo)
  {

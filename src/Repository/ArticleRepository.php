@@ -15,61 +15,73 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
-  {
-    parent::__construct($registry, Article::class);
-  }
+ public function __construct(ManagerRegistry $registry)
+ {
+  parent::__construct($registry, Article::class);
+ }
 
+ //https://youtu.be/S9yhk4V1Fcg?t=2165
 
-  //https://youtu.be/S9yhk4V1Fcg?t=2165
+ /**
+  * @return Query
+  */
+ public function findAllQuery(): Query
+ {
+  return $this->createQueryBuilder('a')
 
-  /**
-   * @return Query
-   */
-  public function findAllQuery(): Query
-  {
-    return $this->createQueryBuilder('a')
+   ->orderBy('a.createdAt', 'DESC')
+  // ->setMaxResults(10)
+   ->getQuery();
+ }
 
-      ->orderBy('a.createdAt', 'DESC')
-      ->setMaxResults(10)
-      ->getQuery();
-  }
-
-  public function findLike($key): Query
-  {
-    return $this->getEntityManager()
-      ->createQuery("
+ public function findLike($key): Query
+ {
+  return $this->getEntityManager()
+   ->createQuery("
                 SELECT a FROM App\Entity\Article a
                 WHERE a.title LIKE :key ")
-      ->setParameter('key', '%' . $key . '%');
-  }
+   ->setParameter('key', '%' . $key . '%');
+ }
 
-  public function search($mots): Query
-  {
-    return  $this->createQueryBuilder('a')
-      ->where('MATCH_AGAINST(a.title,a.introduction,a.content) AGAINST(:mots boolean)>0')
-      ->setParameter('mots', $mots)
-      ->setMaxResults(10)
-      ->orderBy('a.createdAt', 'DESC')
-      ->getQuery();
-  }
+ public function search($mots): Query
+ {
+  return $this->createQueryBuilder('a')
+   ->where('MATCH_AGAINST(a.title,a.introduction,a.content) AGAINST(:mots boolean)>0')
+   ->setParameter('mots', $mots)
+   ->setMaxResults(10)
+   ->orderBy('a.createdAt', 'DESC')
+   ->getQuery();
+ }
 
+ public function findThreeLast($value)
+ {
+  return $this->createQueryBuilder('a')
+   ->join('a.category', 'c')
+  // ->select('a as article, c.libelle')
+   ->andWhere('c.libelle = :val')
+   ->setParameter('val', $value)
+   ->orderBy('a.createdAt', 'DESC')
+   ->setMaxResults(3)
+   ->getQuery()
+   ->getResult();
+ }
 
+ /**
+  * @return Query
+  */
+ public function findAllByCategory($value): Query
+ {
+  return $this->createQueryBuilder('a')
 
-  public function findThreeLast($value)
-  {
-    return $this->createQueryBuilder('a')
-      ->join('a.category', 'c')
-      // ->select('a as article, c.libelle')
-      ->andWhere('c.libelle = :val')
-      ->setParameter('val', $value)
-      ->orderBy('a.createdAt', 'DESC')
-      ->setMaxResults(3)
-      ->getQuery()
-      ->getResult();
-  }
-
-  /*
+   ->orderBy('a.createdAt', 'DESC')
+   ->join('a.category', 'c')
+  // ->select('a as article, c.libelle')
+   ->andWhere('c.libelle = :val')
+   ->setParameter('val', $value)
+   ->orderBy('a.createdAt', 'DESC')
+   ->getQuery();
+ }
+ /*
 public function findOneBySomeField($value): ?Article
 {
 return $this->createQueryBuilder('a')

@@ -63,7 +63,7 @@ class Article
  /**
   * @ORM\Column(type="string", length=255, nullable=true)
   */
- private $image;
+ private $image = 'standard.png';
 
  /**
   * @Vich\UploadableField(mapping="article_image", fileNameProperty="image")
@@ -383,5 +383,7 @@ class Article
 
   }
  }
+
+
 
 }
