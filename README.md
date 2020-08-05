@@ -8,9 +8,11 @@
 
 -> page de contact
 
+-> faire le footer
+
 # Probleme
 
--> pagination 2eme page : les cards sont petites
+
 -> easyadmin : sorting_entity ? requete dql
 -> integration page profil user
 

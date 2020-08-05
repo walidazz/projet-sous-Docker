@@ -11,22 +11,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class SearchController extends AbstractController
 {
  /**
-  * @Route("/search", name="search", methods={"POST"})
+  * @Route("/search/", name="search", methods={"GET"})
   */
  public function search(Request $request, ArticleRepository $repo, PaginatorInterface $paginator)
  {
 
-  $content = $request->get('_contenu');
-  $query   = $repo->search($content);
+   $search = $request->query->get('search');
 
+  $query   = $repo->search($search);
+  $libelle = 'Resultat de la recherche';
   $articles = $paginator->paginate(
    $query,
    $request->query->getInt('page', 1),
    9
   );
 
-  return $this->render('search/index.html.twig', [
-   'articles' => $articles,
-  ]);
+  return $this->render('article/list.html.twig', compact('articles','libelle'));
  }
 }
