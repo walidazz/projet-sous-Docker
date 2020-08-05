@@ -2,12 +2,7 @@
 
 
 
--> faire un footer
 
-faire le repo pour les tags et category
-
-
--> tester les reports
 
 -> maquetter la page de recherche (card horizontal)
 

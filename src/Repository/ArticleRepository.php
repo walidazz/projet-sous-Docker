@@ -81,6 +81,24 @@ class ArticleRepository extends ServiceEntityRepository
    ->orderBy('a.createdAt', 'DESC')
    ->getQuery();
  }
+
+
+
+ /**
+  * @return Query
+  */
+  public function findAllByTags($value): Query
+  {
+   return $this->createQueryBuilder('a')
+ 
+    ->orderBy('a.createdAt', 'DESC')
+    ->join('a.tags', 't')
+   // ->select('a as article, c.libelle')
+    ->andWhere('t.libelle = :val')
+    ->setParameter('val', $value)
+    ->orderBy('a.createdAt', 'DESC')
+    ->getQuery();
+  }
  /*
 public function findOneBySomeField($value): ?Article
 {

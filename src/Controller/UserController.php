@@ -27,6 +27,7 @@ class UserController extends AbstractController
 
  /**
   * @Route("/profile/{id}", name="user_profile")
+  * @IsGranted("ROLE_USER")
   */
  public function showProfile(User $user, UserRepository $repo)
  {

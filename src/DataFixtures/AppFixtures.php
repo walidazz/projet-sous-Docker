@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
    ->setEnable(true);
   $manager->persist($admin);
 
-  $tabCategory = ['Films', 'Séries', 'Animés'];
+  $tabCategory = ['Films', 'Séries', 'Animés','Actualités'];
   $tabTag      = ['Horreur', 'Adulte', 'Science-Fiction'];
 
   for ($f = 0; $f < count($tabCategory); $f++) {

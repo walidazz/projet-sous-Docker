@@ -4,9 +4,11 @@
 
 {% block body %}
 
-<div class="container mx-auto bg-light">
+<div class="container mx-auto bg-gray">
 
-
+    <div class="text-center  my-4 ">
+        <h2 class="shadow-lg "> {{ libelle }}</h2>
+    </div>
 
 
 
@@ -14,7 +16,7 @@
 
     </div>
     <div class="row my-3 ">
-        <div class="card-deck mx-auto my-5 ">
+        <div  class="card-deck my-5 ">
 
             {% for article in articles %}
 

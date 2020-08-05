@@ -27,19 +27,38 @@ class ArticleController extends AbstractController
  }
 
 /**
- * @Route("/article/{libelle}", name="article_list")
+ * @Route("/article/{libelle}", name="article_category_list")
  */
  public function articlelList($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
  {
-
+ 
   $query    = $repo->findAllByCategory($libelle);
   $articles = $paginator->paginate(
    $query,
    $request->query->getInt('page', 1),
    9
   );
-  return $this->render('article/list.html.twig', compact('articles'));
+  return $this->render('article/list.html.twig', compact('articles','libelle'));
  }
+
+/**
+ * @Route("/tags/{libelle}", name="article_tag_list")
+ */
+public function articlelListByTag($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
+{
+  $tag = $libelle;
+ $query    = $repo->findAllByTags($libelle);
+ $articles = $paginator->paginate(
+  $query,
+  $request->query->getInt('page', 1),
+  9
+ );
+
+ return $this->render('article/list.html.twig', compact('articles','libelle'));
+}
+
+
+
 
  /**
   * @Route("/article/show/{slug}", name="article_show")

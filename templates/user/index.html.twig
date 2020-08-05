@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="container bootstrap snippet my-5 p-5">
-    <div class="panel-body inf-content">
+    <div class="panel-body inf-content bg-light">
         <div class="row">
             <div class="col-md-4">
                 <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
@@ -122,8 +122,19 @@
                     </table>
                 </div>
             </div>
+
+
         </div>
+        {% if is_granted('ROLE_USER') %}
+        <div class="float-right">
+            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalReportUser" data-whatever="@mdo" style="color:red;"> <span>Signaler</span>
+            </a>
+    
+            {% include "shared/_modalReportUser.html.twig" with {"path" : path('report_user', {'id' : user.id }) } %}
+        </div> 
+        {% endif %}
     </div>
+
 </div>
 
 {% endblock %}
