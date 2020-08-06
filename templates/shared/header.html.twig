@@ -28,7 +28,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">Contact</a>
+                    <a class="nav-link" href="{{path('contact')}}">Contact</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
@@ -81,10 +81,10 @@
 
 </nav>
 
-<div class="container mx-auto">
+<div class="container ">
     {% for label,messages in app.flashes %}
     {% for message in messages %}
-    <div class="col-4 text-center float-right">
+    <div class="mx -auto col-4 text-center">
         <div class="alert alert-dismissible alert-{{label}}">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{message}}
