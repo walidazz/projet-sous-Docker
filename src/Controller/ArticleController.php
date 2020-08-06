@@ -12,111 +12,112 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
 
- /**
-  * @Route("/", name="homepage")
-  */
- public function index(ArticleRepository $repo)
- {
+  /**
+   * @Route("/", name="homepage")
+   */
+  public function index(ArticleRepository $repo)
+  {
 
-  $globales = $repo->findBy([], ['createdAt' => 'DESC'], 3);
-  $series   = $repo->findThreeLast('Séries');
-  $films    = $repo->findThreeLast('Films');
-  $animes   = $repo->findThreeLast('Animés');
+    $globales = $repo->findBy([], ['createdAt' => 'DESC'], 3);
+    $series   = $repo->findThreeLast('Séries');
+    $films    = $repo->findThreeLast('Films');
+    $animes   = $repo->findThreeLast('Animés');
+    $news = $repo->findThreeLast('Actualités');
 
-  return $this->render('article/homepage.html.twig', compact('series', 'films', 'animes', 'globales'));
- }
+    return $this->render('article/homepage.html.twig', compact('series', 'films', 'animes', 'globales', 'news'));
+  }
 
-/**
- * @Route("/article/{libelle}", name="article_category_list")
- */
- public function articlelList($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
- {
- 
-  $query    = $repo->findAllByCategory($libelle);
-  $articles = $paginator->paginate(
-   $query,
-   $request->query->getInt('page', 1),
-   9
-  );
-  return $this->render('article/list.html.twig', compact('articles','libelle'));
- }
+  /**
+   * @Route("/article/{libelle}", name="article_category_list")
+   */
+  public function articlelList($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
+  {
 
-/**
- * @Route("/tags/{libelle}", name="article_tag_list")
- */
-public function articlelListByTag($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
-{
-  $tag = $libelle;
- $query    = $repo->findAllByTags($libelle);
- $articles = $paginator->paginate(
-  $query,
-  $request->query->getInt('page', 1),
-  9
- );
+    $query    = $repo->findAllByCategory($libelle);
+    $articles = $paginator->paginate(
+      $query,
+      $request->query->getInt('page', 1),
+      9
+    );
+    return $this->render('article/list.html.twig', compact('articles', 'libelle'));
+  }
 
- return $this->render('article/list.html.twig', compact('articles','libelle'));
-}
+  /**
+   * @Route("/tags/{libelle}", name="article_tag_list")
+   */
+  public function articlelListByTag($libelle, PaginatorInterface $paginator, Request $request, ArticleRepository $repo)
+  {
+    $tag = $libelle;
+    $query    = $repo->findAllByTags($libelle);
+    $articles = $paginator->paginate(
+      $query,
+      $request->query->getInt('page', 1),
+      9
+    );
 
-
+    return $this->render('article/list.html.twig', compact('articles', 'libelle'));
+  }
 
 
- /**
-  * @Route("/article/show/{slug}", name="article_show")
-  */
- public function show(Article $article, ArticleRepository $repo)
- {
-  $sameCategory = $repo->findThreeLast($article->getCategory()->getLibelle());
-  $news         = $repo->findBy([], ['createdAt' => 'DESC'], 3);
 
-  return $this->render('article/index.html.twig', compact('article', 'sameCategory', 'news'));
- }
 
-//  /**
- //   * @Route("/articleAjax/{id}", name="articleAjax" )
- //   */
- //  public function articleAjax(Article $article): Response
- //  {
- //   return $this->json(['title' => $article->getTitle(), 200]);
- //  }
+  /**
+   * @Route("/article/show/{slug}", name="article_show")
+   */
+  public function show(Article $article, ArticleRepository $repo)
+  {
+    $sameCategory = $repo->findThreeLast($article->getCategory()->getLibelle());
+    $news         = $repo->findBy([], ['createdAt' => 'DESC'], 3);
 
-//  /**
- //   * @Route("/panier/", name="panier_index" )
- //   */
- //  public function favorite(SessionInterface $session, ArticleRepository $repo)
- //  {
- //   $panier         = $session->get('panier', []);
- //   $panierWithData = [];
+    return $this->render('article/index.html.twig', compact('article', 'sameCategory', 'news'));
+  }
 
-//   foreach ($panier as $id => $value) {
+  //  /**
+  //   * @Route("/articleAjax/{id}", name="articleAjax" )
+  //   */
+  //  public function articleAjax(Article $article): Response
+  //  {
+  //   return $this->json(['title' => $article->getTitle(), 200]);
+  //  }
 
-//    $panierWithData[] = [
- //     'product' => $repo->find($id),
+  //  /**
+  //   * @Route("/panier/", name="panier_index" )
+  //   */
+  //  public function favorite(SessionInterface $session, ArticleRepository $repo)
+  //  {
+  //   $panier         = $session->get('panier', []);
+  //   $panierWithData = [];
 
-//    ];
- //   }
- //   // dd($panierWithData);
- //   return $this->render(
- //    'article/favorite.html.twig',
- //    ['items' => $panierWithData]
- //   );
- //  }
+  //   foreach ($panier as $id => $value) {
 
- /**
-  * @Route("/panier/add/{id}", name="panier_add" )
-  */
-//  public function addFavorite($id, SessionInterface $session)
- //  {
+  //    $panierWithData[] = [
+  //     'product' => $repo->find($id),
 
-//   $panier = $session->get('panier', []);
- //   if (!empty($panier[$id])) {
- //    $panier[$id]++;
- //   } else {
- //    $panier[$id] = 1;
- //   }
+  //    ];
+  //   }
+  //   // dd($panierWithData);
+  //   return $this->render(
+  //    'article/favorite.html.twig',
+  //    ['items' => $panierWithData]
+  //   );
+  //  }
 
-//   $panier = $session->set('panier', $panier);
+  /**
+   * @Route("/panier/add/{id}", name="panier_add" )
+   */
+  //  public function addFavorite($id, SessionInterface $session)
+  //  {
 
-//   return $this->redirectToRoute('panier_index');
- //  }
+  //   $panier = $session->get('panier', []);
+  //   if (!empty($panier[$id])) {
+  //    $panier[$id]++;
+  //   } else {
+  //    $panier[$id] = 1;
+  //   }
+
+  //   $panier = $session->set('panier', $panier);
+
+  //   return $this->redirectToRoute('panier_index');
+  //  }
 
 }

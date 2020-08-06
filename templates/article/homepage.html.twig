@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<div class="container mx-auto bg-light">
+<div class="container mx-auto bg-light mb-5">
     <div class="shadow lg  p-4 my-4  text-center ">
-        <h2 > Nouveautés </h2>
+        <h2> Nouveautés </h2>
     </div>
 
     <div id="carouselExampleCaptions" class="carousel slide mb-3" data-ride="carousel">
@@ -15,8 +15,8 @@
             {% for global in globales  %}
 
             <div class="carousel-item {% if loop.first %} active {% endif %}">
-                <img class="d-block w-100" src="{{asset('images/articles/' ~ global.image) | imagine_filter('detail') }}"
-                    alt="slide">
+                <img class="d-block w-100"
+                    src="{{asset('images/articles/' ~ global.image) | imagine_filter('detail') }}" alt="slide">
                 <div class="carousel-caption text-left d-md-block">
                     <a href="{{path('article_show', {'slug' : global.slug })}}" class="align-self-end">
                         <span class="badge">{{global.category.libelle}}</span>
@@ -33,9 +33,28 @@
     </div>
 
 
+    <div class="text-center  ">
+        <h2 class="shadow lg  p-4 my-4  "> Actualités</h2>
+    </div>
+    <div class="row my-3 ">
+        <div class="card-deck mx-auto ">
+
+            {% for new in news %}
+
+            {% include "shared/_card.html.twig" with {'article' : new} %}
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+
 
     <div class="text-center  ">
-        <h2 class="shadow lg  p-4 my-4  " > Les séries </h2>
+        <h2 class="shadow lg  p-4 my-4  "> Les séries </h2>
     </div>
     <div class="row my-3 ">
         <div class="card-deck mx-auto ">
@@ -55,7 +74,7 @@
 
 
     <div class="text-center ">
-        <h2 class="shadow lg  p-4 my-4 " > Les films </h2>
+        <h2 class="shadow lg  p-4 my-4 "> Les films </h2>
     </div>
     <div class="row my-3">
         <div class="card-deck mx-auto">
@@ -75,7 +94,7 @@
 
 
     <div class="text-center ">
-        <h2 class="shadow lg  p-4 my-4 " > Les animés </h2>
+        <h2 class="shadow lg  p-4 my-4 "> Les animés </h2>
     </div>
     <div class="row my-3">
         <div class="card-deck mx-auto">
