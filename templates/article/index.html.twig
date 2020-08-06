@@ -15,22 +15,26 @@
                     </div>
                     <div class="article-title">
                         <h6><a href="{{path('article_category_list', {'libelle' : article.category.libelle })}}">
-                               
+
                                 {{article.category.libelle}}
 
-                   
+
 
                             </a></h6>
                         <h2>{{article.title}}</h2>
-                        <div class="media">
-                            <div class="avatar">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
+                        <a href="{{path('user_profile' , { 'id' : article.auteur.id })}}">
+                            <div class="media">
+                                <div class="avatar">
+                                    <img src="{{asset('images/users/' ~ article.auteur.avatar) | imagine_filter('avatar') }}"
+                                        title="avatar" alt="avatar">
+                                </div>
+                                <div class="media-body">
+
+                                    <label>{{article.auteur}}</label>
+                                    <span>publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}</span>
+                                </div>
                             </div>
-                            <div class="media-body">
-                                <label>{{article.auteur}}</label>
-                                <span>publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}</span>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="article-content">
                         <p class="font-italic">{{article.introduction}}</p>
@@ -49,34 +53,35 @@
 
 
                         {% for tag in article.tags %}
-                        <a  href="{{path('article_tag_list', { 'libelle' : tag.libelle })}}"> {{tag.libelle}}</a>
+                        <a href="{{path('article_tag_list', { 'libelle' : tag.libelle })}}"> {{tag.libelle}}</a>
                         {% endfor %}
 
-                        
+
 
                         <a href="{{path('article_category_list', {'libelle' : article.category.libelle })}}">
-                               
+
                             {{article.category.libelle}}
 
-               
+
 
                         </a>
 
                     </div>
                     <div class="float-right">
-                        <a data-toggle="modal" data-target="#modalReportArticle" data-whatever="@mdo" style="color:red;">signaler
+                        <a data-toggle="modal" data-target="#modalReportArticle" data-whatever="@mdo"
+                            style="color:red;">signaler
                         </a>
-        
+
                         {% include "shared/_modalReportArticle.html.twig" with {"path" : path('report_article', {'id' : article.id }) } %}
                     </div>
                 </article>
                 <div class="contact-form article-comment">
                     <h4>Laisser un commentaire</h4>
-                    <form id="contact-form" method="POST">
+                    <form id="contact-form" method="POST" action="{{path('comment_new', { 'id' : article.id })}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea name="message" id="message" placeholder="Ecrire un commentaire" rows="4"
+                                    <textarea id="message" name="content" placeholder="Ecrire un commentaire" rows="4"
                                         class="form-control"></textarea>
                                 </div>
                             </div>
@@ -92,13 +97,14 @@
                     <section>
 
                         {% if is_granted('ROLE_USER') %}
-<div class="float-right">
-    <a data-toggle="modal" data-target="#modalReportComment" data-whatever="@mdo" style="color:red;"><i class="fas fa-exclamation-triangle"></i>
-    </a>
+                        <div class="float-right">
+                            <a data-toggle="modal" data-target="#modalReportComment" data-whatever="@mdo"
+                                style="color:red;"><i class="fas fa-exclamation-triangle"></i>
+                            </a>
 
-    {% include "shared/_modalReportComment.html.twig" with {"path" : path('report_comment', {'id' : comment.id }) } %}
-</div>  
-{% endif %}
+                            {% include "shared/_modalReportComment.html.twig" with {"path" : path('report_comment', {'id' : comment.id }) } %}
+                        </div>
+                        {% endif %}
 
 
 
@@ -116,18 +122,17 @@
 
                         {% endif %}
                         <div class="media mb-4">
-                            <img class="d-flex mr-3 rounded-circle"
-                                src="{{asset('images/users/' ~ comment.auteur.avatar) | imagine_filter('avatar') }}"
-                                alt="image de profil de {{comment.auteur.pseudo}} ">
+                            <a href="{{path('user_profile' , { 'id' : comment.auteur.id })}}"> <img
+                                    class="d-flex mr-3 rounded-circle"
+                                    src="{{asset('images/users/' ~ comment.auteur.avatar) | imagine_filter('avatar') }}"
+                                    alt="image de profil de {{comment.auteur.pseudo}} "> </a>
                             <div class="media-body">
-                                <h5 class="mt-0">{{comment.auteur}}</h5>
+                                <a href="{{path('user_profile' , { 'id' : comment.auteur.id })}}">
+                                    <h5 class="mt-0">{{comment.auteur}}</h5>
+                                </a>
                                 {{ comment.content|raw }}
                             </div>
                         </div>
-
-
-
-
 
                     </section>
                     {% endfor %}

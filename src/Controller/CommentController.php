@@ -7,13 +7,14 @@ use App\Entity\Comment;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentController extends AbstractController
 {
     /**
      * 
-     * @Route("/comment/new/{id}", name="comment_new")
+     * @Route("/comment/new/{id}", name="comment_new" , methods={"post"})
      */
     public function new(Article $article, Request $request, EntityManagerInterface $em)
     {
@@ -30,6 +31,7 @@ class CommentController extends AbstractController
     }
     /**
      * @Route("/comment/delete/{id}", name="comment_delete")
+     * @Security("is_granted('ROLE_ADMIN') or user == comment.getAuteur()", message="Vous n'étes pas autorisé à faire cette action")
      */
     public function delete(Comment $comment, EntityManagerInterface $em, Request $request)
     {
