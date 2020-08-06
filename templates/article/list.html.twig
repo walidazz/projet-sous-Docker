@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<div class="container mx-auto bg-gray">
+<div class="container mx-auto bg-light">
 
     <div class="text-center  my-4 ">
-        <h2 class="shadow-lg "> {{ libelle }}</h2>
+        <h2> {{ libelle }}</h2>
     </div>
 
 
@@ -15,8 +15,10 @@
     <div class="text-center ">
 
     </div>
-    <div class="row my-3 ">
-        <div  class="card-deck my-5 ">
+    <div class="row my-3" style="min-height: 80vh;">
+        <div class="card-deck my-5 col-lg-12">
+
+            {% if articles|length > 0 %}
 
             {% for article in articles %}
 
@@ -24,6 +26,12 @@
 
             {% endfor %}
 
+            {% else %}
+
+            <div class="mx-auto">Aucun résultat trouvé</div>
+
+
+            {% endif %}
 
         </div>
 
