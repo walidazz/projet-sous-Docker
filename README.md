@@ -1,18 +1,11 @@
 # A faire
 
-
-
-
-
--> maquetter la page de recherche (card horizontal)
+-> integration page profil user
 
 -> page de contact
+-> mettre le reCaptcha sur le formulaire de contact
 
--> faire le footer
+-> checker les connexions/inscriptions Oauth
 
-# Probleme
-
-
--> easyadmin : sorting_entity ? requete dql
--> integration page profil user
+-> mettre une banniere cookie
 
