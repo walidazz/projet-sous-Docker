@@ -24,20 +24,21 @@ class ArticleController extends AbstractController
   }
 
 
+
+  // public function getHomepage()
+  // {
+
+  //   return  $this->cache->get('homepage', function (ItemInterface $item) {
+  //     $item->expiresAfter(24 * 3600);
+
+  //     return $this->renderHomepage();
+  //   });
+  // }
+
   /**
    * @Route("/", name="homepage")
    */
   public function getHomepage()
-  {
-
-    return  $this->cache->get('homepage', function (ItemInterface $item) {
-      $item->expiresAfter(24 * 3600);
-
-      return $this->renderHomepage();
-    });
-  }
-
-  private function renderHomepage()
   {
 
     $globales = $this->repo->findBy([], ['createdAt' => 'DESC'], 3);

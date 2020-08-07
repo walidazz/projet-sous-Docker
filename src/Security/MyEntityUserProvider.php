@@ -36,9 +36,8 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
             $user = new User();
             $user->setPseudo($response->getNickname())
                 ->setEmail($email)
-                ->setAvatar($response->getProfilePicture())
-                ->setEnable(true); 
-
+                // ->setAvatar($response->getProfilePicture())
+                ->setEnable(true);
         }
         // $user = $this->findUser(array($this->properties[$resourceOwnerName] => $username));
         // TODO: Create the user
@@ -51,9 +50,9 @@ class MyEntityUserProvider extends EntityUserProvider implements AccountConnecto
         return $user;
 
         // JUST FOR Google
-      //  $user->setGoogleAccessToken($response->getAccessToken());
+        //  $user->setGoogleAccessToken($response->getAccessToken());
 
-       // return $user;
+        // return $user;
     }
 
     /**

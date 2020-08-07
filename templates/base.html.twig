@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
 
+    <meta name="description" content="Site d'actualité sur les films et séries">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{encore_entry_link_tags("app")}}
+    <meta name="robots" content="all" />
     <script src="https://kit.fontawesome.com/02235fec30.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.wpcc.io/lib/1.0.2/cookieconsent.min.css" />
@@ -21,7 +23,10 @@
 
 <body>
     {% include "shared/header.html.twig" %}
+
+
     {% block body %}{% endblock %}
+
 
     {% include "shared/footer.html.twig" %}
 
