@@ -167,23 +167,23 @@
                     </div>
                     <div class="widget-body">
 
-                        {% for article in news %}
+                        {% for new in news %}
                         <div class="latest-post-aside media">
                             <div class="lpa-left media-body">
                                 <div class="lpa-title">
-                                    <h5><a href="#">{{article.title}}</a></h5>
+                                    <h5><a href="{{path('article_show', { 'slug' : new.slug})}}">{{new.title}}</a></h5>
                                 </div>
                                 <div class="lpa-meta">
 
                                     <a class="date" href="#">
-                                        publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}
+                                        publié le {{new.createdAt|date("  m/d/Y", "Europe/Paris")}}
                                     </a>
                                 </div>
                             </div>
                             <div class="lpa-right">
                                 <a href="#">
                                     <img src="
-                                        {{asset('images/articles/' ~ article.image) | imagine_filter('miniature') }}"
+                                        {{asset('images/articles/' ~ new.image) | imagine_filter('miniature') }}"
                                         title="" alt="">
                                 </a>
                             </div>
@@ -202,23 +202,24 @@
                     </div>
                     <div class="widget-body">
 
-                        {% for article in sameCategory %}
+                        {% for same in sameCategory %}
                         <div class="latest-post-aside media">
                             <div class="lpa-left media-body">
                                 <div class="lpa-title">
-                                    <h5><a href="#">{{article.title}}</a></h5>
+                                    <h5><a href="{{path('article_show', { 'slug' : same.slug})}}">{{same.title}}</a>
+                                    </h5>
                                 </div>
                                 <div class="lpa-meta">
 
                                     <a class="date" href="#">
-                                        publié le {{article.createdAt|date("  m/d/Y", "Europe/Paris")}}
+                                        publié le {{same.createdAt|date("  m/d/Y", "Europe/Paris")}}
                                     </a>
                                 </div>
                             </div>
                             <div class="lpa-right">
                                 <a href="#">
                                     <img src="
-                                        {{asset('images/articles/' ~ article.image) | imagine_filter('miniature') }}"
+                                        {{asset('images/articles/' ~ same.image) | imagine_filter('miniature') }}"
                                         title="" alt="">
                                 </a>
                             </div>
