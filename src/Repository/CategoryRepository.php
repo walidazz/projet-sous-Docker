@@ -34,9 +34,8 @@ class CategoryRepository extends ServiceEntityRepository
       ->setParameter('val', $value)
       ->orderBy('a.createdAt', 'DESC')
       ->setMaxResults(10)
-      ->getQuery()
-      ->useQueryCache(true)
-      ->setResultCacheLifetime(120);
+      ->getQuery();
+
   }
 
   // /**

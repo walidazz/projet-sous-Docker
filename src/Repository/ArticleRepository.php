@@ -31,9 +31,9 @@ class ArticleRepository extends ServiceEntityRepository
 
       ->orderBy('a.createdAt', 'DESC')
       // ->setMaxResults(10)
-      ->getQuery()
-      ->useQueryCache(true)
-      ->setResultCacheLifetime(120);
+      ->getQuery();
+
+
   }
 
   public function findLike($key): Query
@@ -64,8 +64,6 @@ class ArticleRepository extends ServiceEntityRepository
       ->orderBy('a.createdAt', 'DESC')
       ->setMaxResults(3)
       ->getQuery()
-      ->useQueryCache(true)
-      ->setResultCacheLifetime(120)
       ->getResult();
   }
 
@@ -82,10 +80,7 @@ class ArticleRepository extends ServiceEntityRepository
       ->andWhere('c.libelle = :val')
       ->setParameter('val', $value)
       ->orderBy('a.createdAt', 'DESC')
-
-      ->getQuery()
-      ->useQueryCache(true)
-      ->setResultCacheLifetime(120);
+      ->getQuery();
   }
 
 
@@ -103,8 +98,6 @@ class ArticleRepository extends ServiceEntityRepository
       ->andWhere('t.libelle = :val')
       ->setParameter('val', $value)
       ->orderBy('a.createdAt', 'DESC')
-      ->useQueryCache(true)
-      ->setResultCacheLifetime(120)
       ->getQuery();
   }
   /*
