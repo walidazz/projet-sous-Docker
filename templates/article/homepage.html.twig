@@ -14,7 +14,7 @@
         <div class="carousel-inner">
             {% for global in globales  %}
 
-            <div class="carousel-item {% if loop.first %} active {% endif %}">
+            <div class=" carousel-item {% if loop.first %} active {% endif %}">
                 <img class="d-block w-100"
                     src="{{asset('images/articles/' ~ global.image) | imagine_filter('detail') }}" alt="slide">
                 <div class="carousel-caption text-left d-md-block overlay">

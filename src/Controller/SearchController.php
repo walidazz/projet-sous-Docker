@@ -16,16 +16,16 @@ class SearchController extends AbstractController
  public function search(Request $request, ArticleRepository $repo, PaginatorInterface $paginator)
  {
 
-   $search = $request->query->get('search');
+  $search = $request->query->get('search');
 
-  $query   = $repo->search($search);
-  $libelle = 'Resultat de la recherche';
+  $query    = $repo->search($search);
+  $libelle  = 'Resultat de la recherche';
   $articles = $paginator->paginate(
    $query,
    $request->query->getInt('page', 1),
    9
   );
 
-  return $this->render('article/list.html.twig', compact('articles','libelle'));
+  return $this->render('article/list.html.twig', compact('articles', 'libelle'));
  }
 }
