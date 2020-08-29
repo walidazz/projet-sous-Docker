@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
 
         $tabCategory = ['Films', 'Séries', 'Animés', 'Actualités'];
         $tabTag      = ['Horreur', 'Adulte', 'Science-Fiction'];
-        $tabImages = ['avenger.png', 'blacklagoon.png', 'boruto.png', 'dark.png', 'got.png', 'killingeve.png', 'onepiece.png', 'strangerthings.png', 'titan.png', 'viking.png', 'viking2.png', 'standard.png'];
+        $tabImages   = ['avenger.png', 'blacklagoon.png', 'boruto.png', 'dark.png', 'got.png', 'killingeve.png', 'onepiece.png', 'strangerthings.png', 'titan.png', 'viking.png', 'viking2.png', 'standard.png'];
 
         for ($f = 0; $f < count($tabCategory); $f++) {
             $category = new Category();
