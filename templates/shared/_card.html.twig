@@ -9,7 +9,7 @@
             <div class="align-self-end w-100  overlay ">
                 <div class="my-3">
                     {% for tag in article.tags %}
-                    <a href="{{path('article_tag_list', { 'libelle' : tag.libelle })}}"> <span class="badge badge-pill">
+                    <a href="{{path('article_tag_list', { 'libelle' : tag.libelle })}}"> <span class="badge color-tag">
                             {{tag.libelle}}</a> </span>
                     {% endfor %}
 
