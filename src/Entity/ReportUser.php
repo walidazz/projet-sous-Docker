@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReportUserRepository::class)
@@ -35,6 +36,10 @@ class ReportUser
 
  /**
   * @ORM\Column(type="string", length=255)
+  * @Assert\Length(
+  *      max = 300,
+  *      maxMessage = "Commentaire trop long",
+  * )
   */
  private $motif;
 
@@ -130,6 +135,6 @@ class ReportUser
 
  public function __toString()
  {
-                return $this->motif;
+  return $this->motif;
  }
 }

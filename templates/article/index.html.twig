@@ -77,7 +77,7 @@
                 </article>
                 <div class="contact-form article-comment">
                     <h4>Laisser un commentaire</h4>
-                    <form id="contact-form" method="POST" action="{{path('comment_new', { 'id' : article.id })}}">
+                    <!-- <form id="contact-form" method="POST" action="">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -91,7 +91,14 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="envoyer">
+                    {{ form_end(form) }}
+
+
                     {% for comment in article.comments %}
                     <hr>
                     <section>
