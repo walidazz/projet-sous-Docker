@@ -1,5 +1,11 @@
-# A faire
+# Installation du projet
 
--> checker les connexions/inscriptions Oauth
--> refaire la mise en page des emails
--> check les contraintes de form reportArticle/reportUser/reportComment
+1. composer install 
+
+2. npm install --dev-save
+
+3. npm run build
+
+4. npm run dev
+
+5. enjoy :)
