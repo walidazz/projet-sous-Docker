@@ -37,7 +37,7 @@ class Comment
  /**
   * @ORM\Column(type="text")
   * @Assert\Length(
-  *      max = 300,
+  *      max = 250,
   *      maxMessage = "Commentaire trop long",
   * )
   */
