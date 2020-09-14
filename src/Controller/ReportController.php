@@ -4,20 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\ReportArticle;
-use App\Entity\ReportComment;
-use App\Entity\ReportUser;
 use App\Entity\User;
-use App\Repository\ReportArticleRepository;
-use App\Repository\ReportCommentRepository;
-use App\Repository\ReportUserRepository;
 use App\Service\ReportService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 class ReportController extends AbstractController
 {
@@ -54,7 +45,7 @@ class ReportController extends AbstractController
 
     $lenghtConstraint = $reportService->getLenghtConstraint(['max' => 250]);
     $reportService->createUserReport($lenghtConstraint, $user);
-    
+
     return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
   }
 

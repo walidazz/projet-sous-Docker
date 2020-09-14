@@ -12,8 +12,6 @@ use App\Repository\ReportUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReportArticleRepository;
 use App\Repository\ReportCommentRepository;
-use phpDocumentor\Reflection\Types\Boolean;
-use PhpParser\Node\Expr\Cast\Bool_;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -52,6 +50,12 @@ class ReportService extends AbstractController
         $this->em = $em;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param User $user
+     * @return bool
+     */
     public function reportUserExist(User $user)
     {
         return  $this->ReportUserRepo->findBy(['auteur' => $this->userConnected, 'reported' => $user]);
@@ -69,12 +73,23 @@ class ReportService extends AbstractController
 
 
 
-
+    /**
+     * Créer un nouvelle objet Assert/Length
+     *
+     * @param array $array
+     * @return void
+     */
     public function getLenghtConstraint(array $array)
     {
         return new Assert\Length($array);
     }
 
+    /**
+     * Permet de validater une contrainte Assert
+     *
+     * @param Assert $lenghtConstraint
+     * @return void
+     */
     public function validateContraints(
         $lenghtConstraint
     ) {
@@ -87,7 +102,13 @@ class ReportService extends AbstractController
     }
 
 
-
+    /**
+     * Créer un objet ReportUser et le persist dans la base de donnée
+     *
+     * @param Assert $lenghtConstraint
+     * @param user $user
+     * @return void
+     */
     public function createUserReport($lenghtConstraint, user $user)
     {
 
@@ -109,7 +130,13 @@ class ReportService extends AbstractController
         }
     }
 
-
+    /**
+     * Créer un objet ReportArticle et le persist dans la base de donnée
+     *
+     * @param [type] $lenghtConstraint
+     * @param Article $article
+     * @return void
+     */
     public function createArticleReport($lenghtConstraint, Article $article)
     {
         if (0 === count($this->validateContraints($lenghtConstraint))) {
@@ -131,6 +158,13 @@ class ReportService extends AbstractController
         }
     }
 
+    /**
+     * Créer un objet reportComment et le persist dans la base de donnée
+     *
+     * @param [type] $lenghtConstraint
+     * @param Comment $comment
+     * @return void
+     */
     public function createCommentReport($lenghtConstraint, Comment $comment)
     {
         if (0 === count($this->validateContraints($lenghtConstraint))) {
