@@ -43,7 +43,10 @@
                 <a class="btn btn-primary" data-toggle="modal" data-target="#modalReport" data-whatever="@mdo">signaler
                 </a>
 
-                {% include "shared/_modalReport.html.twig" with { "entity" : "article" , "url" : "report_article" } %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Signaler">
+                {{ form_end(form) }}
             </div>
             <hr>
 
