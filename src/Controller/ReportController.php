@@ -9,11 +9,12 @@ use App\Service\ReportService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class ReportController extends AbstractController
 {
 
   // https://benoitgrisot.fr/inserer-un-formulaire-dans-une-modale-avec-symfony-et-materializecss/
+
+//TODO: mettre des token crsf dans les 3 formulaires de report
 
   /**
    * @Route("/report", name="report")
@@ -28,7 +29,7 @@ class ReportController extends AbstractController
   /**
    * @Route("/report/article/{id}/", name="report_article", methods={"POST","GET"})
    */
-  public function reportArticle(Article $article,  ReportService $reportService)
+  public function reportArticle(Article $article, ReportService $reportService)
   {
 
     $lenghtConstraint = $reportService->getLenghtConstraint(['max' => 250]);
