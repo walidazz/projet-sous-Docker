@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\User;
 use App\Service\ReportService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReportController extends AbstractController
 {
 
   // https://benoitgrisot.fr/inserer-un-formulaire-dans-une-modale-avec-symfony-et-materializecss/
 
-//TODO: mettre des token crsf dans les 3 formulaires de report
+  //TODO: mettre des token crsf dans les 3 formulaires de report
 
   /**
    * @Route("/report", name="report")
@@ -27,9 +28,9 @@ class ReportController extends AbstractController
   }
 
   /**
-   * @Route("/report/article/{id}/", name="report_article", methods={"POST","GET"})
+   * @Route("/report/article/{id}/", name="report_article", methods={"POST"})
    */
-  public function reportArticle(Article $article, ReportService $reportService)
+  public function reportArticle(Article $article, ReportService $reportService, Request $request)
   {
 
     $lenghtConstraint = $reportService->getLenghtConstraint(['max' => 250]);
@@ -39,21 +40,22 @@ class ReportController extends AbstractController
   }
 
   /**
-   * @Route("/report/user/{id}/", name="report_user", methods={"POST","GET"})
+   * @Route("/report/user/{id}/", name="report_user", methods={"POST"})
    */
-  public function reportUser(User $user, ReportService $reportService)
+  public function reportUser(User $user, ReportService $reportService, Request $request)
   {
 
     $lenghtConstraint = $reportService->getLenghtConstraint(['max' => 250]);
+
     $reportService->createUserReport($lenghtConstraint, $user);
 
     return $this->redirectToRoute('user_profile', ['id' => $user->getId()]);
   }
 
   /**
-   * @Route("/report/comment/{id}/", name="report_comment", methods={"POST","GET"})
+   * @Route("/report/comment/{id}/", name="report_comment", methods={"POST"})
    */
-  public function reportComment(Comment $comment, ReportService $reportService)
+  public function reportComment(Comment $comment, ReportService $reportService, Request $request)
   {
 
     $lenghtConstraint = $reportService->getLenghtConstraint(['max' => 250]);

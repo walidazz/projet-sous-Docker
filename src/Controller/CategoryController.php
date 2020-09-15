@@ -20,14 +20,5 @@ class CategoryController extends AbstractController
     }
 
 
-    //     /**
-    //  * @Route("/category/{libelle}", name="category"_list)
-    //  */
-    // public function list($libelle, CategoryRepository $repo)
-    // {
-        
 
-
-    //     return $this->render('category/index.html.twig', );
-    // }
 }

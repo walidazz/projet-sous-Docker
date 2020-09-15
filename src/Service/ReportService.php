@@ -21,7 +21,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReportService extends AbstractController
 {
-
     private User $userConnected;
 
     private $motif;
@@ -32,11 +31,13 @@ class ReportService extends AbstractController
 
     private ValidatorInterface $validator;
 
-    private  $ReportUserRepo;
+    private $ReportUserRepo;
 
     private $ReportArticleRepo;
 
     private $ReportCommentRepo;
+
+    private $request;
 
     public function __construct(Security $security, RequestStack $request, ReportUserRepository $reportUserRepo, ValidatorInterface $validator, ReportArticleRepository $reportArticleRepo, ReportCommentRepository $reportCommentRepo, EntityManagerInterface $em)
     {
@@ -48,6 +49,8 @@ class ReportService extends AbstractController
         $this->ReportArticleRepo = $reportArticleRepo;
         $this->ReportCommentRepo = $reportCommentRepo;
         $this->em = $em;
+
+        $this->request = $request->getCurrentRequest();
     }
 
     /**
@@ -93,7 +96,6 @@ class ReportService extends AbstractController
     public function validateContraints(
         $lenghtConstraint
     ) {
-
         return
             $this->validator->validate(
                 $this->message,
@@ -111,22 +113,25 @@ class ReportService extends AbstractController
      */
     public function createUserReport($lenghtConstraint, user $user)
     {
-
-        if (0 === count($this->validateContraints($lenghtConstraint))) {
-            if (!$this->reportUserExist($user)) {
-                $report = new ReportUser();
-                $report->setAuteur($this->userConnected);
-                $report->setReported($user);
-                $report->setMessage($this->message);
-                $report->setMotif($this->motif);
-                $this->em->persist($report);
-                $this->em->flush();
-                $this->addFlash('success', 'Signalement pris en compte ! ');
+        if ($this->isCsrfTokenValid('reportUser' . $user->getId(), $this->request->get('_token'))) {
+            if (0 === count($this->validateContraints($lenghtConstraint))) {
+                if (!$this->reportUserExist($user)) {
+                    $report = new ReportUser();
+                    $report->setAuteur($this->userConnected);
+                    $report->setReported($user);
+                    $report->setMessage($this->message);
+                    $report->setMotif($this->motif);
+                    $this->em->persist($report);
+                    $this->em->flush();
+                    $this->addFlash('success', 'Signalement pris en compte ! ');
+                } else {
+                    $this->addFlash('warning', 'Vous avez déja signalé cet utilisateur ! ');
+                }
             } else {
-                $this->addFlash('warning', 'Vous avez déja signalé cet utilisateur ! ');
+                $this->addFlash('warning', 'Texte trop long ! ');
             }
         } else {
-            $this->addFlash('warning', 'Texte trop long ! ');
+            $this->addFlash('warning', 'token non valide ');
         }
     }
 
@@ -139,22 +144,25 @@ class ReportService extends AbstractController
      */
     public function createArticleReport($lenghtConstraint, Article $article)
     {
-        if (0 === count($this->validateContraints($lenghtConstraint))) {
-            if (!$this->reportArticleExist($article)) {
-                $report = new ReportArticle();
-                $report->setAuteur($this->userConnected);
-                $report->setReportedArticle($article);
-                $report->setMessage($this->message);
-                $report->setMotif($this->motif);
-                $this->em->persist($report);
-                $this->em->flush();
-                $this->addFlash('success', 'Signalement pris en compte ! ');
+        if ($this->isCsrfTokenValid('reportArticle' . $article->getId(), $this->request->get('_token'))) {
+            if (0 === count($this->validateContraints($lenghtConstraint))) {
+                if (!$this->reportArticleExist($article)) {
+                    $report = new ReportArticle();
+                    $report->setAuteur($this->userConnected);
+                    $report->setReportedArticle($article);
+                    $report->setMessage($this->message);
+                    $report->setMotif($this->motif);
+                    $this->em->persist($report);
+                    $this->em->flush();
+                    $this->addFlash('success', 'Signalement pris en compte ! ');
+                } else {
+                    $this->addFlash('warning', 'Vous avez déja signalé cet article ! ');
+                }
             } else {
-
-                $this->addFlash('warning', 'Vous avez déja signalé cet article ! ');
+                $this->addFlash('warning', 'Texte trop long ! ');
             }
         } else {
-            $this->addFlash('warning', 'Texte trop long ! ');
+            $this->addFlash('warning', 'token non valide ');
         }
     }
 
@@ -167,21 +175,25 @@ class ReportService extends AbstractController
      */
     public function createCommentReport($lenghtConstraint, Comment $comment)
     {
-        if (0 === count($this->validateContraints($lenghtConstraint))) {
-            if (!$this->reportCommentExist($comment)) {
-                $report = new ReportComment();
-                $report->setAuteur($this->userConnected);
-                $report->setReportedComment($comment);
-                $report->setMessage($this->message);
-                $report->setMotif($this->motif);
-                $this->em->persist($report);
-                $this->em->flush();
-                $this->addFlash('success', 'Signalement pris en compte ! ');
+        if ($this->isCsrfTokenValid('reportComment' . $comment->getId(), $this->request->get('_token'))) {
+            if (0 === count($this->validateContraints($lenghtConstraint))) {
+                if (!$this->reportCommentExist($comment)) {
+                    $report = new ReportComment();
+                    $report->setAuteur($this->userConnected);
+                    $report->setReportedComment($comment);
+                    $report->setMessage($this->message);
+                    $report->setMotif($this->motif);
+                    $this->em->persist($report);
+                    $this->em->flush();
+                    $this->addFlash('success', 'Signalement pris en compte ! ');
+                } else {
+                    $this->addFlash('warning', 'Vous avez déja signalé ce commentaire ! ');
+                }
             } else {
-                $this->addFlash('warning', 'Vous avez déja signalé ce commentaire ! ');
+                $this->addFlash('warning', 'Texte trop long ! ');
             }
         } else {
-            $this->addFlash('warning', 'Texte trop long ! ');
+            $this->addFlash('warning', 'token non valide ');
         }
     }
 }
