@@ -57,7 +57,7 @@ easy_admin:
             - { property: 'auteur.avatar', type: 'avatar', height: 60} 
             - auteur
             - article
-            - { property: 'content', type: 'text_editor' }
+            - content
             - createdAt
             - reportComments
       form:
