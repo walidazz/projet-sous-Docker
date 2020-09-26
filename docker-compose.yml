@@ -1,0 +1,42 @@
+version: "3.5"
+
+services:
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - "./:/var/www/app"
+    depends_on:
+      - db
+      - mailhog
+  nginx:
+    image: nginx:stable
+    ports:
+      - "8088:80"
+    volumes:
+      - "./:/var/www/app"
+      - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+    depends_on:
+      - php
+  db:
+    image: "mysql:5.7"
+    ports:
+      - "4306:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=mysql"
+      - "MYSQL_DATABASE=blog"
+      - "MYSQL_USER=mysql"
+      - "MYSQL_PASSWORD=mysql"
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - "MYSQL_ROOT_PASSWORD=mysql"
+    ports:
+      - "8585:80"
