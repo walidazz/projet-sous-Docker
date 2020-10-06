@@ -1,4 +1,6 @@
-# Installation du projet
+# Installation du projet (avec docker)
+
+0.  <code> docker-compose up --build -d </code>
 
 1.  <code> composer install </code>
 
